@@ -1,0 +1,277 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+
+# 🧠 Cursor Rules para Finvesta - App de Finanzas Personales
+
+## 📋 CONTEXTO DEL PROYECTO
+
+### 🎯 Qué estamos construyendo
+
+- **Finvesta**: App web de finanzas personales con Next.js 15 + Supabase
+- **Usuario específico**: 45 años, 3.730€/mes ingreso, 1.500€/mes ahorro objetivo
+- **Problema**: 22.000€ sin rentabilidad + 10.000€ cripto (19.2% del patrimonio)
+- **Meta 5 años**: <15% cripto, <20k€ liquidez, 100k€ patrimonio neto
+
+### 🏗️ Stack Tecnológico FIJO
+
+- **Frontend**: Next.js 15 (App Router), React, TypeScript
+- **UI**: TailwindCSS 4 + Shadcn/UI
+- **Backend**: Supabase (DB + Auth + RLS)
+- **Gráficos**: Recharts
+- **Forms**: React Hook Form + Zod
+- **Deploy**: Vercel
+
+## 🔄 FLUJO DE TRABAJO AI TASKS
+
+### 📂 Dónde encontrar contexto SIEMPRE
+
+1. **`tasks/project-context.md`** - Contexto financiero del usuario (LEER PRIMERO)
+2. **`tasks/README.md`** - Documentación completa del sistema
+3. **`tasks/current-task.md`** - Tarea actual en progreso
+4. **`src/`** - Código implementado hasta ahora
+
+### 🎯 Orden ESTRICTO de implementación
+
+```
+tasks/001-setup/ → tasks/002-accounts/ → tasks/003-dashboard/ → tasks/004-alerts/ → tasks/005-reports/
+```
+
+### 📋 Antes de CUALQUIER código
+
+1. **LEE** `tasks/project-context.md` para entender la situación financiera específica
+2. **REVISA** la tarea actual en `tasks/current-task.md`
+3. **VERIFICA** dependencias completadas en tareas anteriores
+4. **CONFIRMA** el subtask específico a implementar
+5. **LEE** `tasks/templates/getting-started.md` para entender el flujo de trabajo
+
+## 🎨 PRINCIPIOS DE DESARROLLO
+
+### 💰 Financiero-First
+
+- **SIEMPRE** usar números reales del usuario (22k€ liquidez, 10k€ cripto, 3.730€/mes ingreso, 1.500€/mes ahorro)
+- **KPIs críticos**: patrimonio neto, % cripto, liquidez sin rentabilidad
+- **Alertas automáticas**: cripto >15%, liquidez >20k€, ahorro <1.500€
+- **Cálculos precisos**: usar Decimal.js para matemáticas financieras
+
+### 🚀 Performance y UX
+
+- **Registro transacciones**: <10 segundos obligatorio
+- **Dashboard**: cargar KPIs en <3 segundos
+- **Mobile-first**: responsive design desde día 1
+- **Optimistic updates**: UX fluida sin esperas
+
+### 🔒 Seguridad
+
+- **RLS policies**: usuario solo ve sus datos
+- **TypeScript strict**: sin any, validaciones completas
+- **Validaciones dobles**: frontend + backend
+- **Env variables**: secretos nunca en código
+
+## 📝 ESTÁNDARES DE CÓDIGO
+
+### 🗂️ Estructura de archivos
+
+```
+src/
+├── app/                   # Next.js 15 App Router
+│   ├── (auth)/            # Rutas de autenticación
+│   ├── dashboard/         # Dashboard principal
+│   └── layout.tsx         # Layout global
+├── features/              # Lógica por dominio
+│   ├── accounts/          # Gestión de cuentas
+│   ├── transactions/      # Transacciones
+│   ├── dashboard/         # KPIs y analytics
+│   ├── alerts/            # Sistema de alertas
+│   └── shared/            # Componentes reutilizables
+│       ├── components/    # Componentes reutilizables
+│       │   ├── ui/            # Shadcn/UI components
+│       │   ├── forms/         # Formularios específicos
+│       │   └── charts/        # Componentes de gráficas
+│       ├── hooks/           # Hooks
+│       ├── lib/             # Utilities y helpers
+│       ├── validations/     # Esquemas Zod
+│       ├── types/             # Tipos TypeScript globales
+│       └── utils/           # Helpers generales
+```
+
+### 🏷️ Naming Conventions
+
+- **Componentes**: PascalCase (`TransactionForm`)
+- **Hooks**: camelCase con `use` (`useTransactions`)
+- **Utils**: camelCase (`calculateNetWorth`)
+- **Types**: PascalCase (`UserAccount`, `Transaction`)
+- **Constants**: UPPER_SNAKE_CASE (`MAX_CRYPTO_PERCENTAGE`)
+
+### 📊 Datos financieros
+
+```typescript
+// SIEMPRE usar estos tipos para cálculos
+import Decimal from "decimal.js";
+
+interface FinancialKPIs {
+  netWorth: Decimal; // Patrimonio neto total
+  cryptoPercentage: Decimal; // % cripto del patrimonio
+  monthlyGoal: Decimal; // 1500€ objetivo mensual
+  liquidityNoReturn: Decimal; // Liquidez sin rentabilidad
+}
+
+// Constantes críticas del usuario
+const USER_FINANCIAL_GOALS = {
+  MONTHLY_SAVINGS_TARGET: new Decimal(1500),
+  MAX_CRYPTO_PERCENTAGE: new Decimal(15),
+  MAX_LIQUID_NO_RETURN: new Decimal(20000),
+  TARGET_NET_WORTH_5Y: new Decimal(100000),
+};
+```
+
+## 🎯 IMPLEMENTACIÓN POR SUBTASKS
+
+### ⚡ Reglas de subtask
+
+- **Máximo 1-2 horas** por subtask
+- **1 funcionalidad completa** por vez
+- **Testing incluido** en cada subtask
+- **Commit al final** de cada subtask
+
+### 📋 Template de commit específico Finvesta
+
+```
+feat(scope): descripción breve
+
+- Implementa funcionalidad X según task-00X-Y
+- Incluye validaciones y tipos TypeScript
+- Añade tests unitarios para casos críticos
+- Cumple criterios de éxito definidos
+- Don't forget to commit!
+
+Refs: tasks/00X-scope/subtask-Y.md
+```
+
+## 🧪 TESTING OBLIGATORIO
+
+### 🔍 Qué testear SIEMPRE
+
+```typescript
+// 1. Cálculos financieros críticos
+describe("Financial calculations", () => {
+  it("calculates net worth correctly with real user data", () => {
+    const accounts = [
+      { balance: new Decimal(22000), type: "bank" },
+      { balance: new Decimal(10000), type: "crypto" },
+    ];
+    expect(calculateNetWorth(accounts)).toBe(new Decimal(32000));
+  });
+});
+
+// 2. Validaciones de negocio
+it("alerts when crypto > 15% of net worth", () => {
+  const netWorth = new Decimal(32000);
+  const cryptoValue = new Decimal(10000); // 31.25%
+  expect(shouldAlertCryptoHigh(cryptoValue, netWorth)).toBe(true);
+});
+
+// 3. Componentes críticos
+it("transaction form saves in <10 seconds", async () => {
+  const startTime = Date.now();
+  await submitTransaction(mockData);
+  expect(Date.now() - startTime).toBeLessThan(10000);
+});
+```
+
+## 🚨 ALERTAS Y VALIDACIONES
+
+### 💡 Sistema de alertas automáticas
+
+```typescript
+interface Alert {
+  type: "critical" | "warning" | "info";
+  title: string;
+  message: string;
+  action?: string; // Acción específica sugerida
+  value?: Decimal; // Valor que disparó la alerta
+}
+
+// Ejemplos con datos reales del usuario
+const ALERT_RULES = {
+  cryptoTooHigh: (cryptoPercent: Decimal) => ({
+    type: "warning",
+    title: "Cripto representa el ${cryptoPercent}% de tu patrimonio",
+    message: "Considera rebalancear. Objetivo: <15%",
+    action: "Vender €${amount} y reinvertir en fondos indexados",
+  }),
+  liquidityTooHigh: (amount: Decimal) => ({
+    type: "critical",
+    title: "€${amount} sin rentabilidad",
+    message: "Dinero parado perdiendo inflación",
+    action: "Mover €${amount-20000} a cuenta remunerada o fondos",
+  }),
+};
+```
+
+## 🔄 WORKFLOW CON CURSOR
+
+### 📝 Al empezar nueva sesión
+
+1. **Cursor**: "Lee tasks/project-context.md y dime el estado actual"
+2. **Cursor**: "¿Qué subtask de tasks/current-task.md debo implementar?"
+3. **Cursor**: "Muestra la estructura de archivos relevante para esta subtask"
+
+### 🎯 Al implementar subtask
+
+1. **Cursor**: "Implementa la subtask X siguiendo exactamente los pasos definidos"
+2. **Cursor**: "Incluye TypeScript types, validaciones y tests"
+3. **Cursor**: "Usa los números reales del usuario (22k€ liquidez, 10k€ cripto, 3.730€/mes ingreso)"
+4. **Cursor**: "Verifica que cumples todos los criterios de éxito"
+
+### ✅ Al completar subtask
+
+1. **Cursor**: "Crea commit con formato especificado"
+2. **Cursor**: "Actualiza tasks/current-task.md con progreso"
+3. **Cursor**: "Sugiere próxima subtask o validaciones pendientes"
+
+## 🚀 COMANDOS ÚTILES
+
+### 🔧 Setup y desarrollo
+
+```bash
+# Instalar dependencias específicas
+npm install @supabase/supabase-js @hookform/resolvers zod decimal.js
+npm install recharts lucide-react date-fns
+
+# Testing
+npm test -- --watch
+npm run type-check
+
+# Build y deploy
+npm run build
+npm run start
+```
+
+### 📊 Debugging financiero
+
+```typescript
+// Helper para debug de cálculos
+const debugFinancials = (user: UserData) => {
+  console.log("📊 Financial Debug:", {
+    netWorth: user.netWorth.toString(),
+    cryptoPercent: user.cryptoPercentage.toString() + "%",
+    liquidNoReturn: user.liquidityNoReturn.toString(),
+    alerts: user.activeAlerts.map((a) => a.type),
+  });
+};
+```
+
+## 🎯 REMEMBER ALWAYS
+
+- **User-centric**: Todo gira en torno a optimizar las finanzas del usuario específico
+- **Numbers matter**: 22k€ liquidez, 10k€ cripto, 3.730€/mes ingreso son datos REALES, no ejemplos
+- **Performance critical**: Registro transacciones <10s, dashboard <3s
+- **Context is king**: Siempre leer project-context.md antes de cualquier implementación
+- **Incremental**: Subtasks pequeñas, completas y testeadas
+
+---
+
+🎯 **OBJETIVO FINAL**: App que automatice la estrategia financiera del usuario hacia 100k€ patrimonio neto optimizado en 5 años, con alertas inteligentes que guíen decisiones específicas.
