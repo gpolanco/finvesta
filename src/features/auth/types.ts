@@ -1,5 +1,5 @@
 /**
- * Tipos para el sistema de autenticación de Finvesta
+ * Tipos específicos para el sistema de autenticación de Finvesta
  */
 
 export interface User {

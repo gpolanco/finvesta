@@ -1,4 +1,8 @@
 import { z } from "zod";
+import type {
+  LoginCredentials,
+  RegisterCredentials,
+} from "@/features/auth/types";
 
 export const loginSchema = z.object({
   email: z
@@ -64,3 +68,8 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
 export type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
+
+// Asegurar que los tipos Zod sean compatibles con los tipos de la aplicación
+export const _typeCheck: LoginCredentials = {} as LoginFormData;
+export const _typeCheck2: Omit<RegisterCredentials, "confirmPassword"> =
+  {} as Omit<RegisterFormData, "confirmPassword">;

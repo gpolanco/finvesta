@@ -7,7 +7,7 @@ import {
   User,
   LoginCredentials,
   RegisterCredentials,
-} from "@/features/shared/types/auth";
+} from "@/features/auth/types";
 import type { Session } from "@supabase/supabase-js";
 
 interface AuthContextValue extends AuthState {
