@@ -1,41 +1,52 @@
 "use client";
-import { supabase } from "@/lib/supabase/client";
-import { useEffect, useState } from "react";
 
-export default function TestSupabase() {
-  const [status, setStatus] = useState("Connecting...");
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
-  useEffect(() => {
-    const testConnection = async () => {
-      try {
-        const { error } = await supabase.from("test").select("*").limit(1);
-        if (error && error.code === "PGRST116") {
-          setStatus("✅ Connected! (Table not found is expected)");
-        } else {
-          setStatus("✅ Connected!");
-        }
-      } catch (err) {
-        setStatus("❌ Connection failed");
-        console.error(err);
+export default function TestSupabasePage() {
+  const [result, setResult] = useState<string>("");
+  const [loading, setLoading] = useState(false);
+
+  const supabase = createClient();
+
+  const testConnection = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) {
+        setResult(`Error: ${error.message}`);
+      } else {
+        setResult(
+          `Connection successful! Session: ${data.session ? "Active" : "None"}`
+        );
       }
-    };
-
-    testConnection();
-  }, []);
+    } catch (err) {
+      setResult(
+        `Error: ${err instanceof Error ? err.message : "Unknown error"}`
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold mb-4">Supabase Connection Test</h1>
-      <p className="text-lg">{status}</p>
-      <div className="mt-4 text-sm text-gray-600">
-        <p>
-          If you see &quot;Connected!&quot; your Supabase setup is working
-          correctly.
-        </p>
-        <p>
-          Next step: Configure your actual Supabase credentials in .env.local
-        </p>
-      </div>
+    <div className="container mx-auto py-8">
+      <h1 className="text-2xl font-bold mb-4">Test Supabase Connection</h1>
+
+      <button
+        onClick={testConnection}
+        disabled={loading}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
+      >
+        {loading ? "Testing..." : "Test Connection"}
+      </button>
+
+      {result && (
+        <div className="mt-4 p-4 bg-gray-100 rounded">
+          <pre>{result}</pre>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -8,10 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/features/shared/components/ui/card";
+import { appRoutes } from "@/features/routes";
 import { RegisterForm } from "./register-form";
 import { RegisterSuccess } from "./register-success";
 
-export function RegisterPageClient() {
+export function RegisterFormWrapper() {
   const [registeredEmail, setRegisteredEmail] = useState<string | null>(null);
 
   const handleSuccess = (email: string) => {
@@ -35,6 +37,18 @@ export function RegisterPageClient() {
 
       <CardContent>
         <RegisterForm onSuccess={handleSuccess} />
+
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600">
+            ¿Ya tienes cuenta?{" "}
+            <Link
+              href={appRoutes.auth.signIn.path}
+              className="text-blue-600 hover:text-blue-500 font-medium"
+            >
+              Inicia sesión aquí
+            </Link>
+          </p>
+        </div>
       </CardContent>
     </Card>
   );

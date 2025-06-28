@@ -1,11 +1,11 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { LoginForm } from "./login-form";
+import LoginForm from "./login-form";
 
 export function LoginFormWrapper() {
   const searchParams = useSearchParams();
-  const redirectUrl = searchParams.get("redirect") || undefined;
+  const redirectUrl = searchParams.get("redirect");
 
-  return <LoginForm redirectUrl={redirectUrl} />;
+  return <LoginForm redirectUrl={redirectUrl || undefined} />;
 }

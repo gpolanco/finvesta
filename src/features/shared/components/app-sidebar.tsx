@@ -14,6 +14,7 @@ import {
   IconSearch,
 } from "@tabler/icons-react";
 
+import { useAuth } from "@/features/auth/context/auth-context";
 import { appRoutes } from "@/features/routes";
 import { NavDocuments } from "@/features/shared/components/nav-documents";
 import { NavMain } from "@/features/shared/components/nav-main";
@@ -31,11 +32,6 @@ import {
 
 // Datos específicos de Finvesta usando el sistema de rutas
 const finvestaData = {
-  user: {
-    name: "Usuario Finvesta",
-    email: "usuario@finvesta.com",
-    avatar: "/avatars/user.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -148,6 +144,18 @@ const finvestaData = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user } = useAuth();
+
+  // Si no hay usuario, no mostramos el sidebar
+  if (!user) return null;
+
+  // Preparar datos del usuario para el componente NavUser
+  const userData = {
+    name: user.email || "Usuario",
+    email: user.email || "",
+    avatar: "", // TODO: Implementar avatar cuando tengamos la funcionalidad
+  };
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -171,7 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={finvestaData.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={finvestaData.user} />
+        <NavUser user={userData} />
       </SidebarFooter>
     </Sidebar>
   );

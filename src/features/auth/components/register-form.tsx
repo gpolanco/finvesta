@@ -4,12 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { z } from "zod";
 
 import { useAuth } from "@/features/auth/context/auth-context";
-import {
-  registerSchema,
-  type RegisterFormData,
-} from "@/features/auth/lib/validations";
 import { Button } from "@/features/shared/components/ui/button";
 import { Input } from "@/features/shared/components/ui/input";
 import { Alert, AlertDescription } from "@/features/shared/components/ui/alert";
@@ -22,6 +19,21 @@ import {
   FormMessage,
 } from "@/features/shared/components/ui/form";
 
+const registerSchema = z
+  .object({
+    email: z.string().email("Por favor, ingresa un email válido"),
+    password: z
+      .string()
+      .min(6, "La contraseña debe tener al menos 6 caracteres"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormData = z.infer<typeof registerSchema>;
+
 interface RegisterFormProps {
   onSuccess: (email: string) => void;
 }
@@ -29,13 +41,11 @@ interface RegisterFormProps {
 export function RegisterForm({ onSuccess }: RegisterFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const { signUp, error, clearError } = useAuth();
+  const { signUp, error, clearError, loading } = useAuth();
 
   const form = useForm<RegisterFormData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -43,48 +53,30 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
   });
 
   const onSubmit = async (data: RegisterFormData) => {
-    setIsLoading(true);
     clearError();
 
     try {
-      await signUp(data);
+      await signUp(data.email, data.password);
       onSuccess(data.email);
     } catch (error) {
       // Error ya está manejado por el AuthContext
       console.error("Error en registro:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6"
+        noValidate
+      >
         {/* Error general */}
         {error && (
           <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-
-        {/* Name */}
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Nombre completo</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Tu nombre completo"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
 
         {/* Email */}
         <FormField
@@ -168,8 +160,8 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
         />
 
         {/* Submit Button */}
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Creando cuenta..." : "Crear cuenta"}
+        <Button type="submit" className="w-full" disabled={loading}>
+          {loading ? "Creando cuenta..." : "Crear cuenta"}
         </Button>
       </form>
     </Form>
