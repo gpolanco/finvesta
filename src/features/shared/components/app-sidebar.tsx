@@ -1,28 +1,24 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
-  IconCamera,
+  IconCash,
+  IconCreditCard,
+  IconTrendingUp,
+  IconAlertTriangle,
+  IconFileText,
   IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
+  IconWallet,
   IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+  IconHelp,
+  IconSearch,
+} from "@tabler/icons-react";
 
-import { NavDocuments } from "@/features/shared/components/nav-documents"
-import { NavMain } from "@/features/shared/components/nav-main"
-import { NavSecondary } from "@/features/shared/components/nav-secondary"
-import { NavUser } from "@/features/shared/components/nav-user"
+import { appRoutes } from "@/features/routes";
+import { NavDocuments } from "@/features/shared/components/nav-documents";
+import { NavMain } from "@/features/shared/components/nav-main";
+import { NavSecondary } from "@/features/shared/components/nav-secondary";
+import { NavUser } from "@/features/shared/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -31,124 +27,125 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/features/shared/components/ui/sidebar"
+} from "@/features/shared/components/ui/sidebar";
 
-const data = {
+// Datos específicos de Finvesta usando el sistema de rutas
+const finvestaData = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: "Usuario Finvesta",
+    email: "usuario@finvesta.com",
+    avatar: "/avatars/user.jpg",
   },
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
-    },
-    {
-      title: "Lifecycle",
-      url: "#",
-      icon: IconListDetails,
-    },
-    {
-      title: "Analytics",
-      url: "#",
+      url: appRoutes.dashboard.home.path,
       icon: IconChartBar,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
+      title: "Mis Cuentas",
+      url: appRoutes.accounts.list.path,
+      icon: IconCreditCard,
     },
     {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
+      title: "Inversiones",
+      url: "#", // TODO: Implementar en próximos subtasks
+      icon: IconTrendingUp,
+    },
+    {
+      title: "Alertas",
+      url: "#", // TODO: Implementar en task 004
+      icon: IconAlertTriangle,
+    },
+    {
+      title: "Reportes",
+      url: "#", // TODO: Implementar en task 005
+      icon: IconFileText,
     },
   ],
-  navClouds: [
+  navFinancial: [
     {
-      title: "Capture",
-      icon: IconCamera,
+      title: "Patrimonio",
+      icon: IconWallet,
       isActive: true,
-      url: "#",
+      url: appRoutes.dashboard.home.path,
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Resumen General",
+          url: appRoutes.dashboard.home.path,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Evolución",
+          url: "#", // TODO: Gráfico temporal
         },
       ],
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
+      title: "Cuentas",
+      icon: IconCreditCard,
+      url: appRoutes.accounts.list.path,
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Todas las Cuentas",
+          url: appRoutes.accounts.list.path,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Añadir Cuenta",
+          url: appRoutes.accounts.create.path,
         },
       ],
     },
     {
-      title: "Prompts",
-      icon: IconFileAi,
+      title: "Análisis",
+      icon: IconChartBar,
       url: "#",
       items: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "KPIs Financieros",
+          url: appRoutes.dashboard.home.path,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Objetivos",
+          url: "#", // TODO: Página de objetivos
         },
       ],
     },
   ],
   navSecondary: [
     {
-      title: "Settings",
-      url: "#",
+      title: "Configuración",
+      url: "#", // TODO: Página de settings
       icon: IconSettings,
     },
     {
-      title: "Get Help",
-      url: "#",
+      title: "Ayuda",
+      url: "#", // TODO: Página de ayuda
       icon: IconHelp,
     },
     {
-      title: "Search",
-      url: "#",
+      title: "Buscar",
+      url: "#", // TODO: Búsqueda global
       icon: IconSearch,
     },
   ],
   documents: [
     {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
+      name: "Objetivos Financieros",
+      url: "#", // TODO: Página de objetivos
+      icon: IconCash,
     },
     {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
+      name: "Historial",
+      url: "#", // TODO: Historial completo
+      icon: IconFileText,
     },
     {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
+      name: "Exportar Datos",
+      url: "#", // TODO: Feature de exportación
+      icon: IconFileText,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -160,22 +157,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+              <a href={appRoutes.dashboard.home.path}>
+                <IconCash className="!size-5" />
+                <span className="text-base font-semibold">Finvesta</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={finvestaData.navMain} />
+        <NavDocuments items={finvestaData.documents} />
+        <NavSecondary items={finvestaData.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={finvestaData.user} />
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }
