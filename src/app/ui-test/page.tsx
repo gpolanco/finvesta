@@ -1,4 +1,4 @@
-import { UITest } from "@/components/ui-test";
+import { UITest } from "@/features/shared/components/ui-test";
 
 export default function UITestPage() {
   return <UITest />;

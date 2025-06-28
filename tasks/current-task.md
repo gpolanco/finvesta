@@ -4,8 +4,8 @@
 
 **Última actualización**: 2024-12-19  
 **Tarea activa**: Task 001 - Configuración Inicial  
-**Progreso general**: 20% - Subtask 001-1 completado ✅  
-**Próximo subtask**: 001-2 Shadcn/UI Setup
+**Progreso general**: 40% - Subtask 001-2 completado ✅  
+**Próximo subtask**: 001-3 Layout Base
 
 ## 🔥 Subtask Actual
 
@@ -21,21 +21,34 @@
 - [x] Cliente Supabase instalado (pnpm)
 - [x] Test de conexión implementado
 
-### 001-2: Instalación y configuración Shadcn/UI
+### 001-2: Instalación y configuración Shadcn/UI ✅
 
 **Estimación**: 30-40 minutos  
+**Estado**: ✅ Completado
+
+#### ✅ Criterios de éxito:
+
+- [x] Shadcn/UI inicializado con pnpm dlx
+- [x] Componentes base instalados (button, card, input, etc.)
+- [x] Tema financiero personalizado con colores específicos
+- [x] Página de test /ui-test funciona correctamente
+- [x] Build de Next.js sin warnings
+
+### 001-3: Layout Base y Navegación
+
+**Estimación**: 45-60 minutos  
 **Estado**: 🟡 Próximo
 
 #### 🎯 Próximos 3 subtasks:
 
-1. **001-2**: Instalación y configuración Shadcn/UI (30 min) ← **SIGUIENTE**
-2. **001-3**: Layout base y navegación (45 min)
-3. **001-4**: Sistema de autenticación (60 min)
+1. **001-3**: Layout base y navegación (45 min) ← **SIGUIENTE**
+2. **001-4**: Sistema de autenticación (60 min)
+3. **001-5**: Schema de base de datos (45 min)
 
 ## 📊 Progreso por Tareas
 
 ```
-Task 001: Setup Inicial        [██████░░░░] 1/5 subtasks
+Task 001: Setup Inicial        [████████░░] 2/5 subtasks
 Task 002: Cuentas/Transacciones [░░░░░░░░░░] 0/6 subtasks
 Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks
 Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks
@@ -56,11 +69,16 @@ _Ninguno por ahora_
 - Workflow optimizado para Cursor con comandos específicos
 - Documentación completa con criterios de éxito claros
 
-**🎯 Listo para empezar desarrollo:**
+**✅ Subtasks completados en esta sesión:**
 
-- Contexto: App finanzas personales - optimizar patrimonio hacia 100k€ en 5 años
-- Stack: Next.js 15 + Supabase + Shadcn/UI + Recharts
-- Datos reales: 22k€ liquidez, 10k€ cripto, 3.730€/mes ingreso
+- **001-1**: ✅ Supabase configurado con pnpm
+- **001-2**: ✅ Shadcn/UI + tema financiero personalizado
+
+**🎯 Estado actual:**
+
+- Stack completo funcionando: Next.js 15 + Supabase + Shadcn/UI
+- UI test disponible en `/ui-test` con datos reales del usuario
+- Build funciona sin errores, listo para desarrollo
 
 ---
 
