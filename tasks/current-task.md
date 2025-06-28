@@ -4,8 +4,8 @@
 
 **Última actualización**: 2024-12-19  
 **Tarea activa**: Task 001 - Configuración Inicial  
-**Progreso general**: 40% - Subtask 001-2 completado ✅  
-**Próximo subtask**: 001-3 Layout Base
+**Progreso general**: 60% - Subtask 001-3 completado ✅  
+**Próximo subtask**: 001-4 Sistema de Autenticación
 
 ## 🔥 Subtask Actual
 
@@ -34,21 +34,37 @@
 - [x] Página de test /ui-test funciona correctamente
 - [x] Build de Next.js sin warnings
 
-### 001-3: Layout Base y Navegación
+### 001-3: Layout Base y Navegación ✅
 
 **Estimación**: 45-60 minutos  
+**Estado**: ✅ Completado
+
+#### ✅ Criterios de éxito:
+
+- [x] Dashboard-01 de shadcn/ui instalado como base
+- [x] AppSidebar con navegación financiera
+- [x] SiteHeader con breadcrumbs contextual
+- [x] SectionCards para KPIs financieros
+- [x] ChartAreaInteractive (placeholder temporal para Recharts)
+- [x] DataTable con datos financieros coherentes con Finvesta
+- [x] Layout responsivo mobile + desktop funcional
+- [x] Build sin errores después de corrección de inconsistencia data
+
+### 001-4: Sistema de Autenticación
+
+**Estimación**: 60-90 minutos  
 **Estado**: 🟡 Próximo
 
 #### 🎯 Próximos 3 subtasks:
 
-1. **001-3**: Layout base y navegación (45 min) ← **SIGUIENTE**
-2. **001-4**: Sistema de autenticación (60 min)
-3. **001-5**: Schema de base de datos (45 min)
+1. **001-4**: Sistema de autenticación (60 min) ← **SIGUIENTE**
+2. **001-5**: Schema de base de datos (45 min)
+3. **002-1**: Modelo de cuentas financieras (45 min)
 
 ## 📊 Progreso por Tareas
 
 ```
-Task 001: Setup Inicial        [████████░░] 2/5 subtasks
+Task 001: Setup Inicial        [████████████] 3/5 subtasks ✅✅✅
 Task 002: Cuentas/Transacciones [░░░░░░░░░░] 0/6 subtasks
 Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks
 Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks
@@ -72,13 +88,21 @@ _Ninguno por ahora_
 **✅ Subtasks completados en esta sesión:**
 
 - **001-1**: ✅ Supabase configurado con pnpm
-- **001-2**: ✅ Shadcn/UI + tema financiero personalizado
+- **001-2**: ✅ Shadcn/UI + tema financiero + estructura features/
+- **001-3**: ✅ Dashboard-01 base + corrección inconsistencia data
 
 **🎯 Estado actual:**
 
-- Stack completo funcionando: Next.js 15 + Supabase + Shadcn/UI
-- UI test disponible en `/ui-test` con datos reales del usuario
-- Build funciona sin errores, listo para desarrollo
+- Dashboard funcional con dashboard-01 de shadcn/ui
+- Navegación y layout responsivo implementados
+- Componentes UI con datos financieros coherentes (22k€ liquidez, 10k€ cripto)
+- Build funciona sin errores, listo para autenticación (subtask-4)
+
+**🔧 Corrección crítica realizada:**
+
+- **Problema**: dashboard-01 importaba `data.json` con estructura de documentos pero DataTable usaba estructura financiera
+- **Solución**: Eliminado import data.json y hecho DataTable independiente con datos financieros de Finvesta
+- **Resultado**: Coherencia completa entre props y datos reales del usuario
 
 ---
 
