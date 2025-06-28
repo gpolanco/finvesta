@@ -4,33 +4,38 @@
 
 **Última actualización**: 2024-12-19  
 **Tarea activa**: Task 001 - Configuración Inicial  
-**Progreso general**: 0% - Sistema AI Tasks configurado ✅  
-**Próximo subtask**: 001-1 Setup Supabase
+**Progreso general**: 20% - Subtask 001-1 completado ✅  
+**Próximo subtask**: 001-2 Shadcn/UI Setup
 
 ## 🔥 Subtask Actual
 
-### 001-1: Setup Supabase y Variables de Entorno
+### 001-1: Setup Supabase y Variables de Entorno ✅
 
 **Estimación**: 30-45 minutos  
-**Estado**: 🟡 No iniciado
+**Estado**: ✅ Completado
 
 #### ✅ Criterios de éxito:
 
-- [ ] Proyecto Supabase creado
-- [ ] Variables de entorno configuradas en `.env.local`
-- [ ] Cliente Supabase funcionando
-- [ ] Conexión verificada
+- [x] Estructura Supabase creada en código
+- [x] Variables de entorno template en `.env.local`
+- [x] Cliente Supabase instalado (pnpm)
+- [x] Test de conexión implementado
+
+### 001-2: Instalación y configuración Shadcn/UI
+
+**Estimación**: 30-40 minutos  
+**Estado**: 🟡 Próximo
 
 #### 🎯 Próximos 3 subtasks:
 
-1. **001-2**: Instalación y configuración Shadcn/UI (30 min)
+1. **001-2**: Instalación y configuración Shadcn/UI (30 min) ← **SIGUIENTE**
 2. **001-3**: Layout base y navegación (45 min)
 3. **001-4**: Sistema de autenticación (60 min)
 
 ## 📊 Progreso por Tareas
 
 ```
-Task 001: Setup Inicial        [████░░░░░░] 0/5 subtasks
+Task 001: Setup Inicial        [██████░░░░] 1/5 subtasks
 Task 002: Cuentas/Transacciones [░░░░░░░░░░] 0/6 subtasks
 Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks
 Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks
