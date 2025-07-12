@@ -317,12 +317,12 @@ INSERT INTO public.transactions (user_id, account_id, type, amount, description,
 
 ## ✅ Criterios de Éxito
 
-- [ ] Todas las tablas creadas sin errores
-- [ ] RLS policies funcionando correctamente
-- [ ] Trigger de usuario nuevo operativo
-- [ ] Tipos TypeScript definidos
-- [ ] Datos de ejemplo insertados
-- [ ] Queries básicas funcionando
+- [x] Todas las tablas creadas sin errores
+- [x] RLS policies funcionando correctamente
+- [x] Trigger de usuario nuevo operativo
+- [x] Tipos TypeScript definidos
+- [x] Datos de ejemplo insertados
+- [x] Queries básicas funcionando
 
 ## 🧪 Testing
 

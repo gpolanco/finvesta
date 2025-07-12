@@ -75,18 +75,18 @@
 ### 001-5: Schema de Base de Datos
 
 **Estimación**: 45-60 minutos  
-**Estado**: 🟡 Próximo
+**Estado**: ✅ Completado
 
-#### 🎯 Criterios de éxito pendientes:
+#### ✅ Criterios de éxito:
 
-- [ ] Crear tablas principales (profiles, accounts, transactions, categories, alerts)
-- [ ] Configurar RLS policies para seguridad por usuario
-- [ ] Función y trigger para categorías por defecto en nuevos usuarios
-- [ ] Tipos TypeScript para todas las entidades de BD
-- [ ] Datos de ejemplo del usuario específico (22k€ liquidez, 10k€ cripto)
-- [ ] Build sin errores con tipos de BD integrados
+- [x] Esquema de tablas principales creado
+- [x] RLS policies configuradas
+- [x] Trigger de categorías por defecto activo
+- [x] Tipos TypeScript añadidos (`src/types/database.ts`)
+- [x] Datos de ejemplo usuario añadidos (22k€ liquidez, 10k€ cripto)
+- [x] Build sin errores con tipos de BD
 
-#### 🎯 Próximos 3 subtasks después de 001-5:
+#### 🎯 Próximos 3 subtasks de Task 002:
 
 1. **002-1**: Modelo de cuentas financieras (45 min)
 2. **002-2**: CRUD de transacciones (60 min)
@@ -95,7 +95,7 @@
 ## 📊 Progreso por Tareas
 
 ```
-Task 001: Setup Inicial        [████████████████░] 4/5 subtasks ✅✅✅✅🔄
+Task 001: Setup Inicial        [█████████████████] 5/5 subtasks ✅✅✅✅✅
 Task 002: Cuentas/Transacciones [░░░░░░░░░░] 0/6 subtasks (sin desarrollar)
 Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks (sin desarrollar)
 Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks (sin desarrollar)
@@ -105,31 +105,11 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks (s
 ## 🚨 Estado Actual - Listo para Schema BD
 
 **Funcionalidades implementadas y funcionando:**
+• Esquema de base de datos completo con RLS y datos de ejemplo
 
-✅ **Infraestructura completa**:
+**🎯 Siguiente paso crítico**: Iniciar Task 002 (Cuentas y Transacciones)
 
-- Next.js 15 + TypeScript + TailwindCSS 4
-- Supabase configurado con autenticación completa
-- Shadcn/UI con tema personalizado y componentes instalados
-
-✅ **Autenticación robusta**:
-
-- Login/registro con validaciones Zod
-- Protección de rutas con middleware
-- Confirmación de email funcionando
-- Logout con limpieza de sesión
-- AuthContext global con estado reactivo
-
-✅ **UI/UX base**:
-
-- Dashboard-01 responsivo implementado
-- Sidebar con navegación específica de Finvesta
-- Sistema de rutas modular y tipado
-- Componentes reutilizables organizados por features
-
-**🎯 Siguiente paso crítico**: Implementar esquema de base de datos para habilitar funcionalidades financieras.
-
-## 💡 Notas de Implementación
+## �� Notas de Implementación
 
 **✅ Correcciones y mejoras realizadas:**
 
