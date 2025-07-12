@@ -129,11 +129,11 @@ export default function TestSupabase() {
 
 ## ✅ Criterios de Éxito
 
-- [ ] Proyecto Supabase creado y configurado
-- [ ] Variables de entorno en `.env.local` funcionando
-- [ ] Cliente Supabase instalado y exportado
-- [ ] Página de test muestra "Connected!"
-- [ ] No hay errores en consola de Next.js
+- [x] Proyecto Supabase creado y configurado
+- [x] Variables de entorno en `.env.local` funcionando
+- [x] Cliente Supabase instalado y exportado
+- [x] Página de test muestra "Connected!"
+- [x] No hay errores en consola de Next.js
 
 ## 🧪 Testing
 
