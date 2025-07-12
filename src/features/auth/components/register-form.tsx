@@ -18,28 +18,24 @@ import {
   FormLabel,
   FormMessage,
 } from "@/features/shared/components/ui/form";
+import { RegisterSuccess } from "@/features/auth/components/register-success";
 
 const registerSchema = z
   .object({
-    email: z.string().email("Por favor, ingresa un email válido"),
-    password: z
-      .string()
-      .min(6, "La contraseña debe tener al menos 6 caracteres"),
+    email: z.string().email("Please enter a valid email"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
 type RegisterFormData = z.infer<typeof registerSchema>;
 
-interface RegisterFormProps {
-  onSuccess: (email: string) => void;
-}
-
-export function RegisterForm({ onSuccess }: RegisterFormProps) {
+export const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState<string | null>(null);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { signUp, error, clearError, loading } = useAuth();
 
@@ -57,12 +53,16 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
     try {
       await signUp(data.email, data.password);
-      onSuccess(data.email);
+      setRegisteredEmail(data.email);
     } catch (error) {
       // Error ya está manejado por el AuthContext
       console.error("Error en registro:", error);
     }
   };
+
+  if (registeredEmail) {
+    return <RegisterSuccess email={registeredEmail} />;
+  }
 
   return (
     <Form {...form}>
@@ -86,7 +86,7 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="tu@email.com" {...field} />
+                <Input type="email" placeholder="your@email.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,12 +99,12 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Contraseña</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
                     type={showPassword ? "text" : "password"}
-                    placeholder="Tu contraseña"
+                    placeholder="Your password"
                     className="pr-10"
                     {...field}
                   />
@@ -132,12 +132,12 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirmar contraseña</FormLabel>
+              <FormLabel>Confirm password</FormLabel>
               <FormControl>
                 <div className="relative">
                   <Input
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirma tu contraseña"
+                    placeholder="Confirm your password"
                     className="pr-10"
                     {...field}
                   />
@@ -161,9 +161,9 @@ export function RegisterForm({ onSuccess }: RegisterFormProps) {
 
         {/* Submit Button */}
         <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Creando cuenta..." : "Crear cuenta"}
+          {loading ? "Creating account..." : "Create account"}
         </Button>
       </form>
     </Form>
   );
-}
+};

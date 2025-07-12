@@ -9,7 +9,7 @@ interface RegisterSuccessProps {
   email: string;
 }
 
-export function RegisterSuccess({ email }: RegisterSuccessProps) {
+export const RegisterSuccess = ({ email }: RegisterSuccessProps) => {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardContent className="pt-6 space-y-6 text-center">
@@ -22,10 +22,8 @@ export function RegisterSuccess({ email }: RegisterSuccessProps) {
 
         {/* Title and Description */}
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-gray-900">¡Cuenta creada!</h2>
-          <p className="text-gray-600">
-            Hemos enviado un enlace de confirmación a:
-          </p>
+          <h2 className="text-2xl font-bold text-gray-900">Account created!</h2>
+          <p className="text-gray-600">We have sent a confirmation link to:</p>
         </div>
 
         {/* Email Display */}
@@ -37,25 +35,22 @@ export function RegisterSuccess({ email }: RegisterSuccessProps) {
         {/* Instructions */}
         <div className="space-y-3 text-sm text-gray-600">
           <p>
-            Por favor, revisa tu bandeja de entrada y haz clic en el enlace para
-            activar tu cuenta.
+            Please check your inbox and click the link to activate your account.
           </p>
-          <p>Si no ves el correo, revisa también tu carpeta de spam.</p>
+          <p>If you don&apos;t see the email, check your spam folder.</p>
         </div>
 
         {/* Actions */}
         <div className="space-y-3">
           <Button asChild className="w-full">
-            <Link href={appRoutes.auth.signIn.path}>
-              Ir al inicio de sesión
-            </Link>
+            <Link href={appRoutes.auth.signIn.path}>Go to login</Link>
           </Button>
 
           <Button variant="ghost" asChild className="w-full">
-            <Link href="/">Volver al inicio</Link>
+            <Link href={appRoutes.dashboard.overview.path}>Go to home</Link>
           </Button>
         </div>
       </CardContent>
     </Card>
   );
-}
+};

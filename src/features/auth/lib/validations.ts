@@ -7,60 +7,60 @@ import type {
 export const loginSchema = z.object({
   email: z
     .string()
-    .min(1, "El email es requerido")
-    .email("Formato de email inválido"),
+    .min(1, "The email is required")
+    .email("Invalid email format"),
   password: z
     .string()
-    .min(1, "La contraseña es requerida")
-    .min(6, "La contraseña debe tener al menos 6 caracteres"),
+    .min(1, "The password is required")
+    .min(6, "The password must be at least 6 characters"),
 });
 
 export const registerSchema = z
   .object({
     name: z
       .string()
-      .min(1, "El nombre es requerido")
-      .min(2, "El nombre debe tener al menos 2 caracteres"),
+      .min(1, "The name is required")
+      .min(2, "The name must be at least 2 characters"),
     email: z
       .string()
-      .min(1, "El email es requerido")
-      .email("Formato de email inválido"),
+      .min(1, "The email is required")
+      .email("Invalid email format"),
     password: z
       .string()
-      .min(1, "La contraseña es requerida")
-      .min(6, "La contraseña debe tener al menos 6 caracteres")
+      .min(1, "The password is required")
+      .min(6, "The password must be at least 6 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "La contraseña debe contener al menos una minúscula, una mayúscula y un número"
+        "The password must contain at least one lowercase letter, one uppercase letter and one number"
       ),
-    confirmPassword: z.string().min(1, "Confirma tu contraseña"),
+    confirmPassword: z.string().min(1, "Confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
 export const forgotPasswordSchema = z.object({
   email: z
     .string()
-    .min(1, "El email es requerido")
-    .email("Formato de email inválido"),
+    .min(1, "The email is required")
+    .email("Invalid email format"),
 });
 
 export const resetPasswordSchema = z
   .object({
     password: z
       .string()
-      .min(1, "La contraseña es requerida")
-      .min(6, "La contraseña debe tener al menos 6 caracteres")
+      .min(1, "The password is required")
+      .min(6, "The password must be at least 6 characters")
       .regex(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-        "La contraseña debe contener al menos una minúscula, una mayúscula y un número"
+        "The password must contain at least one lowercase letter, one uppercase letter and one number"
       ),
-    confirmPassword: z.string().min(1, "Confirma tu contraseña"),
+    confirmPassword: z.string().min(1, "Confirm your password"),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Las contraseñas no coinciden",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 

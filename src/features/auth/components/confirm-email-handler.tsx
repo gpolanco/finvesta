@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Suspense } from "react";
-import type { EmailOtpType } from "@supabase/supabase-js";
 
-function ConfirmEmailContent() {
+import type { EmailOtpType } from "@supabase/supabase-js";
+import { appRoutes } from "@/features/routes";
+
+export const ConfirmEmailHandler = () => {
   const [status, setStatus] = useState<"loading" | "success" | "error">(
     "loading"
   );
@@ -33,7 +34,7 @@ function ConfirmEmailContent() {
             setStatus("success");
             // Redirect to dashboard after successful confirmation
             setTimeout(() => {
-              router.push("/dashboard");
+              router.push(appRoutes.dashboard.overview.path);
             }, 2000);
           }
         } catch (error) {
@@ -84,7 +85,7 @@ function ConfirmEmailContent() {
           expired.
         </p>
         <button
-          onClick={() => router.push("/sign-in")}
+          onClick={() => router.push(appRoutes.auth.signIn.path)}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
           Go to Sign In
@@ -92,18 +93,4 @@ function ConfirmEmailContent() {
       </div>
     </div>
   );
-}
-
-export default function ConfirmEmailHandler() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-screen items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-        </div>
-      }
-    >
-      <ConfirmEmailContent />
-    </Suspense>
-  );
-}
+};

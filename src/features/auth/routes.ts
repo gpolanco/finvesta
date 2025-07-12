@@ -3,8 +3,8 @@ import { BaseRoute, DynamicRoute } from "@/features/shared/types/route-type";
 export const authRoutes = {
   signIn: {
     path: "/sign-in",
-    title: "Iniciar Sesión - Finvesta",
-    description: "Accede a tu cuenta de finanzas personales",
+    title: "Login - Finvesta",
+    description: "Access your Finvesta account",
     generatePath: (params?: { redirectUrl?: string }) =>
       params?.redirectUrl
         ? `/sign-in?redirect_url=${encodeURIComponent(params.redirectUrl)}`
@@ -13,20 +13,20 @@ export const authRoutes = {
 
   signUp: {
     path: "/sign-up",
-    title: "Crear Cuenta - Finvesta",
-    description: "Crea tu cuenta para gestionar tus finanzas personales",
+    title: "Create Account - Finvesta",
+    description: "Create your account to manage your personal finances",
   } as BaseRoute,
 
   forgotPassword: {
     path: "/forgot-password",
-    title: "Recuperar Contraseña - Finvesta",
-    description: "Recupera el acceso a tu cuenta",
+    title: "Forgot Password - Finvesta",
+    description: "Recover access to your account",
   } as BaseRoute,
 
   resetPassword: {
     path: "/reset-password",
-    title: "Nueva Contraseña - Finvesta",
-    description: "Establece una nueva contraseña para tu cuenta",
+    title: "New Password - Finvesta",
+    description: "Set a new password for your account",
     generatePath: (params: { token: string }) =>
       `/reset-password?token=${params.token}`,
   } as DynamicRoute<{ token: string }>,
