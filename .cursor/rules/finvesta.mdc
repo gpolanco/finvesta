@@ -1,9 +1,3 @@
----
-description:
-globs:
-alwaysApply: true
----
-
 # 🧠 Cursor Rules para Finvesta - App de Finanzas Personales
 
 ## 📋 CONTEXTO DEL PROYECTO
@@ -104,6 +98,68 @@ src/
 - **Utils**: camelCase (`calculateNetWorth`)
 - **Types**: PascalCase (`UserAccount`, `Transaction`)
 - **Constants**: UPPER_SNAKE_CASE (`MAX_CRYPTO_PERCENTAGE`)
+
+### 📄 Estructura de páginas
+
+```typescript
+// SIEMPRE usar PageWrapper para páginas nuevas
+import { PageWrapper } from "@/features/shared/components/page-wrapper";
+
+export default function ExamplePage() {
+  return (
+    <PageWrapper
+      title="Título de la página"
+      description="Descripción opcional"
+      className="optional-classes"
+    >
+      {/* Contenido de la página */}
+    </PageWrapper>
+  );
+}
+```
+
+### 🗂️ Estados vacíos en listas
+
+```typescript
+// SIEMPRE usar EmptyContent para listas vacías
+import { EmptyContent } from "@/features/shared/components/empty-content";
+import { PiggyBank, Receipt, Plus, AlertTriangle } from "lucide-react";
+
+// Estado vacío básico
+<EmptyContent
+  title="No tienes cuentas registradas"
+  description="Añade tu primera cuenta para empezar a gestionar tus finanzas"
+  icon={PiggyBank}
+/>
+
+// Estado vacío con botón de acción
+<EmptyContent
+  title="No hay transacciones"
+  description="Registra tu primera transacción para hacer seguimiento de tus finanzas"
+  icon={Receipt}
+  buttonText="Añadir transacción"
+  createPath="/transactions/create"
+  buttonIcon={Plus}
+  fullHeight={false}
+/>
+
+// Props disponibles:
+interface EmptyContentProps {
+  title: string;                    // Título principal (obligatorio)
+  description: string;              // Descripción explicativa (obligatorio)
+  icon?: LucideIcon;               // Icono (opcional, default: PiggyBank)
+  fullHeight?: boolean;            // Altura completa (default: true)
+  buttonText?: string;             // Texto del botón (opcional)
+  createPath?: string;             // Ruta para crear (opcional)
+  buttonIcon?: LucideIcon;         // Icono del botón (default: Plus)
+}
+
+// Casos de uso específicos Finvesta:
+// 1. Cuentas vacías: icon={PiggyBank}, createPath="/accounts/create"
+// 2. Transacciones vacías: icon={Receipt}, createPath="/transactions/create"
+// 3. Alertas vacías: icon={AlertTriangle}, sin botón (no se crean manualmente)
+// 4. Reportes vacíos: icon={FileText}, sin botón (se generan automáticamente)
+```
 
 ### 📊 Datos financieros
 
@@ -264,6 +320,71 @@ const debugFinancials = (user: UserData) => {
 };
 ```
 
+## 🚨 LECCIONES APRENDIDAS Y ERRORES A EVITAR
+
+### ❌ Errores cometidos en subtask 002-1
+
+1. **Enfoque client-side inicial**
+
+   - ❌ Creé componente con `"use client"`, `useState`, `useEffect`
+   - ✅ **Correcto**: Server-side con actions + Suspense
+   - 📝 **Lección**: Siempre priorizar server-side data loading
+
+2. **No verificar estructura existente**
+
+   - ❌ Creé `src/app/accounts/` sin verificar `src/app/(dashboard)/accounts/`
+   - ✅ **Correcto**: Usar `list_dir` antes de crear archivos
+   - 📝 **Lección**: Explorar estructura antes de implementar
+
+3. **Duplicar layout común**
+
+   - ❌ Incluí `SidebarProvider` en página cuando existía `DashboardLayout`
+   - ✅ **Correcto**: Verificar layouts existentes
+   - 📝 **Lección**: Aprovechar layouts comunes
+
+4. **Asumir sin consultar**
+   - ❌ No consulté carpetas existentes
+   - ✅ **Correcto**: Verificar antes de crear
+   - 📝 **Lección**: `list_dir` es obligatorio
+
+### 🔄 Protocolo OBLIGATORIO antes de implementar
+
+1. **Exploración de estructura**:
+
+   ```bash
+   # SIEMPRE ejecutar antes de crear archivos
+   list_dir src/app/
+   list_dir src/features/[feature]/
+   ```
+
+2. **Verificar layouts existentes**:
+
+   - Buscar `layout.tsx` en rutas padre
+   - No duplicar `SidebarProvider`, `AppSidebar`, etc.
+   - Adaptar páginas a layouts comunes
+
+3. **Arquitectura server-side**:
+
+   - Actions en `src/features/[feature]/actions/`
+   - Componentes server que reciben props
+   - Skeletons separados en `components/`
+   - `Suspense` en páginas para loading
+
+4. **Orden de implementación**:
+   - 📂 Explorar estructura existente
+   - 🏗️ Crear actions server-side
+   - 🧩 Crear componentes server
+   - 💀 Crear skeletons separados
+   - 📄 Crear/actualizar páginas con Suspense
+
+### 🎯 Checklist pre-implementación
+
+- [ ] ¿Exploré la estructura de `src/app/` con `list_dir`?
+- [ ] ¿Verifiqué si existe un layout común?
+- [ ] ¿Planifiqué la arquitectura server-side?
+- [ ] ¿Identifiqué donde crear actions y components?
+- [ ] ¿Entendí el contexto financiero del usuario?
+
 ## 🎯 REMEMBER ALWAYS
 
 - **User-centric**: Todo gira en torno a optimizar las finanzas del usuario específico
@@ -271,6 +392,11 @@ const debugFinancials = (user: UserData) => {
 - **Performance critical**: Registro transacciones <10s, dashboard <3s
 - **Context is king**: Siempre leer project-context.md antes de cualquier implementación
 - **Incremental**: Subtasks pequeñas, completas y testeadas
+- **Structure first**: Explorar antes de crear, verificar antes de implementar
+
+---
+
+🎯 **OBJETIVO FINAL**: App que automatice la estrategia financiera del usuario hacia 100k€ patrimonio neto optimizado en 5 años, con alertas inteligentes que guíen decisiones específicas.
 
 ---
 

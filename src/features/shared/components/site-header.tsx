@@ -1,6 +1,6 @@
-import { Button } from "@/features/shared/components/ui/button"
-import { Separator } from "@/features/shared/components/ui/separator"
-import { SidebarTrigger } from "@/features/shared/components/ui/sidebar"
+import { Button } from "@/features/shared/components/ui/button";
+import { Separator } from "@/features/shared/components/ui/separator";
+import { SidebarTrigger } from "@/features/shared/components/ui/sidebar";
 
 export function SiteHeader() {
   return (
@@ -26,5 +26,5 @@ export function SiteHeader() {
         </div>
       </div>
     </header>
-  )
+  );
 }

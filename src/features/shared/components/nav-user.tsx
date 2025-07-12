@@ -30,6 +30,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/features/shared/components/ui/sidebar";
+import { appRoutes } from "@/features/routes";
 
 export function NavUser({
   user,
@@ -47,7 +48,7 @@ export function NavUser({
   const handleSignOut = async () => {
     try {
       await signOut();
-      router.push("/sign-in");
+      router.push(appRoutes.auth.signIn.path);
     } catch (error) {
       console.error("Error signing out:", error);
     }
@@ -113,21 +114,21 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <IconUserCircle />
-                Mi Perfil
+                My Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconCreditCard />
-                Configuración de Cuenta
+                Account Settings
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconNotification />
-                Notificaciones
+                Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut} className="text-red-600">
               <IconLogout />
-              Cerrar Sesión
+              Logout
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

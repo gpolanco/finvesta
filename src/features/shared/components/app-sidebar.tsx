@@ -14,7 +14,6 @@ import {
   IconSearch,
 } from "@tabler/icons-react";
 
-import { useAuth } from "@/features/auth/context/auth-context";
 import { appRoutes } from "@/features/routes";
 import { NavDocuments } from "@/features/shared/components/nav-documents";
 import { NavMain } from "@/features/shared/components/nav-main";
@@ -29,79 +28,80 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/features/shared/components/ui/sidebar";
+import { appConfig } from "@/app-config";
 
 // Datos específicos de Finvesta usando el sistema de rutas
 const finvestaData = {
   navMain: [
     {
       title: "Dashboard",
-      url: appRoutes.dashboard.home.path,
+      url: appRoutes.dashboard.overview.path,
       icon: IconChartBar,
     },
     {
-      title: "Mis Cuentas",
+      title: "My Accounts",
       url: appRoutes.accounts.list.path,
       icon: IconCreditCard,
     },
     {
-      title: "Inversiones",
+      title: "Investments",
       url: "#", // TODO: Implementar en próximos subtasks
       icon: IconTrendingUp,
     },
     {
-      title: "Alertas",
+      title: "Alerts",
       url: "#", // TODO: Implementar en task 004
       icon: IconAlertTriangle,
     },
     {
-      title: "Reportes",
+      title: "Reports",
       url: "#", // TODO: Implementar en task 005
       icon: IconFileText,
     },
   ],
   navFinancial: [
     {
-      title: "Patrimonio",
+      title: "Assets",
       icon: IconWallet,
       isActive: true,
       url: appRoutes.dashboard.home.path,
       items: [
         {
-          title: "Resumen General",
+          title: "General Summary",
           url: appRoutes.dashboard.home.path,
         },
         {
-          title: "Evolución",
+          title: "Evolution",
           url: "#", // TODO: Gráfico temporal
         },
       ],
     },
     {
-      title: "Cuentas",
+      title: "Accounts",
       icon: IconCreditCard,
       url: appRoutes.accounts.list.path,
       items: [
         {
-          title: "Todas las Cuentas",
+          title: "All Accounts",
           url: appRoutes.accounts.list.path,
         },
         {
-          title: "Añadir Cuenta",
+          title: "Add Account",
           url: appRoutes.accounts.create.path,
         },
       ],
     },
     {
-      title: "Análisis",
+      title: "Analysis",
       icon: IconChartBar,
       url: "#",
       items: [
         {
-          title: "KPIs Financieros",
+          title: "Financial KPIs",
           url: appRoutes.dashboard.home.path,
         },
         {
-          title: "Objetivos",
+          title: "Goals",
           url: "#", // TODO: Página de objetivos
         },
       ],
@@ -109,49 +109,57 @@ const finvestaData = {
   ],
   navSecondary: [
     {
-      title: "Configuración",
+      title: "Settings",
       url: "#", // TODO: Página de settings
       icon: IconSettings,
     },
     {
-      title: "Ayuda",
+      title: "Help",
       url: "#", // TODO: Página de ayuda
       icon: IconHelp,
     },
     {
-      title: "Buscar",
+      title: "Search",
       url: "#", // TODO: Búsqueda global
       icon: IconSearch,
     },
   ],
   documents: [
     {
-      name: "Objetivos Financieros",
+      name: "Financial Goals",
       url: "#", // TODO: Página de objetivos
       icon: IconCash,
     },
     {
-      name: "Historial",
+      name: "History",
       url: "#", // TODO: Historial completo
       icon: IconFileText,
     },
     {
-      name: "Exportar Datos",
+      name: "Export Data",
       url: "#", // TODO: Feature de exportación
       icon: IconFileText,
     },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { user } = useAuth();
+interface AppSidebarProps extends React.ComponentProps<typeof Sidebar> {
+  user?: {
+    id: string;
+    email?: string;
+    user_metadata?: {
+      name?: string;
+    };
+  } | null;
+}
 
+export function AppSidebar({ user, ...props }: AppSidebarProps) {
   // Si no hay usuario, no mostramos el sidebar
   if (!user) return null;
 
   // Preparar datos del usuario para el componente NavUser
   const userData = {
-    name: user.email || "Usuario",
+    name: user.user_metadata?.name || user.email || "Usuario",
     email: user.email || "",
     avatar: "", // TODO: Implementar avatar cuando tengamos la funcionalidad
   };
@@ -167,7 +175,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href={appRoutes.dashboard.home.path}>
                 <IconCash className="!size-5" />
-                <span className="text-base font-semibold">Finvesta</span>
+                <span className="text-base font-semibold">
+                  {appConfig.name}
+                </span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

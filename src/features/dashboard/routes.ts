@@ -3,15 +3,15 @@ import { BaseRoute } from "@/features/shared/types/route-type";
 export const dashboardRoutes = {
   home: {
     path: "/",
-    title: "Dashboard - Finvesta",
+    title: "Dashboard",
     description:
-      "Tu resumen financiero personal - Patrimonio, cripto, ahorros y más",
+      "Your financial summary - Portfolio, investments, savings and more",
   } as BaseRoute,
 
   overview: {
     path: "/dashboard",
-    title: "Resumen Financiero - Finvesta",
+    title: "Dashboard",
     description:
-      "Visualiza tus KPIs: patrimonio neto, % cripto, liquidez y objetivos",
+      "Your financial summary - Portfolio, investments, savings and more",
   } as BaseRoute,
 } as const;
