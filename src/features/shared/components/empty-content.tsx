@@ -11,6 +11,7 @@ interface EmptyContentProps {
   buttonText?: string;
   createPath?: string;
   buttonIcon?: LucideIcon;
+  children?: React.ReactNode;
 }
 
 export const EmptyContent = ({
@@ -21,6 +22,7 @@ export const EmptyContent = ({
   buttonText = "Add account",
   createPath,
   buttonIcon = Plus,
+  children,
 }: EmptyContentProps) => {
   const ButtonIcon = buttonIcon || Plus;
 
@@ -39,6 +41,7 @@ export const EmptyContent = ({
       <p className="text-sm text-gray-500 text-center max-w-sm">
         {description}
       </p>
+      {children && <div className="mt-4">{children}</div>}
       {createPath && (
         <Button variant="default" asChild className="mt-4" size="lg">
           <Link title={buttonText} href={createPath}>

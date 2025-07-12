@@ -7,8 +7,6 @@ import {
 import { Badge } from "@/features/shared/components/ui/badge";
 import { cn } from "@/features/shared/lib/utils";
 import { Banknote, Bitcoin, PiggyBank, CreditCard, Wallet } from "lucide-react";
-import { EmptyContent } from "@/features/shared/components/empty-content";
-import { accountsRoutes } from "@/features/routes";
 
 interface AccountListProps {
   accounts: Account[];
@@ -53,18 +51,6 @@ function getTypeColor(type: Account["type"]) {
 }
 
 export function AccountList({ accounts }: AccountListProps) {
-  if (accounts.length === 0) {
-    return (
-      <EmptyContent
-        title="You don't have any accounts registered"
-        description="Add your first account to start managing your finances and tracking your portfolio"
-        icon={PiggyBank}
-        buttonText="Add account"
-        createPath={accountsRoutes.create.path}
-      />
-    );
-  }
-
   return (
     <div
       className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"

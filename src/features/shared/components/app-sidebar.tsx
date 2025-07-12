@@ -44,8 +44,8 @@ const finvestaData = {
       icon: IconCreditCard,
     },
     {
-      title: "Investments",
-      url: "#", // TODO: Implementar en próximos subtasks
+      title: "Transactions",
+      url: appRoutes.transactions.list.path,
       icon: IconTrendingUp,
     },
     {
@@ -88,6 +88,21 @@ const finvestaData = {
         {
           title: "Add Account",
           url: appRoutes.accounts.create.path,
+        },
+      ],
+    },
+    {
+      title: "Transactions",
+      icon: IconTrendingUp,
+      url: appRoutes.transactions.list.path,
+      items: [
+        {
+          title: "All Transactions",
+          url: appRoutes.transactions.list.path,
+        },
+        {
+          title: "New Transaction",
+          url: appRoutes.transactions.create.path,
         },
       ],
     },

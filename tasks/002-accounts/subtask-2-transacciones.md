@@ -38,15 +38,15 @@
 
 ## ✅ Criterios de Éxito
 
-- [ ] Formulario TransactionForm funcional
-- [ ] Alta, edición y borrado funcionando
-- [ ] Lista de transacciones por cuenta
-- [ ] Validaciones Zod y react-hook-form
-- [ ] Feedback inmediato en UI
-- [ ] Registro <10s
-- [ ] TypeScript sin warnings
-- [ ] Sin errores en consola
-- [ ] Pruebas unitarias mínimas
+- [x] Formulario TransactionForm funcional
+- [x] Alta, edición y borrado funcionando
+- [x] Lista de transacciones por cuenta
+- [x] Validaciones Zod y react-hook-form
+- [x] Feedback inmediato en UI
+- [x] Registro <10s
+- [x] TypeScript sin warnings
+- [x] Sin errores en consola
+- [x] Pruebas unitarias mínimas
 
 ## 🧪 Testing
 
@@ -89,6 +89,14 @@ Don't forget to commit!"
 ## 🎯 Próximo Paso
 
 ✅ **Completado** → 👉 **[Continuar con subtask-3-categorias.md](./subtask-3-categorias.md)**
+
+### 🎉 Estado: TAREA COMPLETADA
+
+- [x] Todas las funcionalidades implementadas
+- [x] UI responsive y accesible con nuevos patrones
+- [x] Integración con sistema de rutas centralizado
+- [x] Formateadores personalizados aplicados
+- [x] Patrón EmptyContent con children implementado
 
 ## 💰 Contexto Financiero
 
