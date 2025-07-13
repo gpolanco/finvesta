@@ -5,6 +5,7 @@ interface PageWrapperProps {
   title?: string;
   description?: string;
   className?: string;
+  actions?: React.ReactNode;
 }
 
 export function PageWrapper({
@@ -12,14 +13,18 @@ export function PageWrapper({
   title,
   description,
   className,
+  actions,
 }: PageWrapperProps) {
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      <div className="flex flex-col">
-        {title && <h1 className={"text-2xl font-bold"}>{title}</h1>}
-        {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
-        )}
+      <div className="flex items-center">
+        <div className="flex flex-col">
+          {title && <h1 className={"text-2xl font-bold"}>{title}</h1>}
+          {description && (
+            <p className="text-sm text-muted-foreground">{description}</p>
+          )}
+        </div>
+        {actions && <div className="flex ml-auto">{actions}</div>}
       </div>
       {children}
     </div>

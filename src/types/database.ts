@@ -4,7 +4,7 @@
  * Keep them in sync whenever the database schema changes.
  */
 
-export interface Profile {
+interface Profile {
   id: string;
   name: string;
   email: string;
@@ -17,37 +17,35 @@ export interface Profile {
   updated_at: string; // ISO timestamp
 }
 
-export type AccountType = "bank" | "crypto" | "investment" | "cash" | "savings";
-
-export interface Account {
+type AccountType = "bank" | "crypto" | "investment" | "cash" | "savings";
+interface DbBase {
   id: string;
   user_id: string;
+  created_at: string;
+  updated_at?: string;
+}
+
+interface Account extends DbBase {
   name: string;
   type: AccountType;
   provider?: string;
   balance: number;
   currency: string; // ISO currency code (e.g. "EUR")
   is_active: boolean;
-  created_at: string;
-  updated_at: string;
 }
 
-export interface Category {
-  id: string;
-  user_id?: string; // null when global default
+interface Category extends DbBase {
   name: string;
   type: "income" | "expense" | "investment";
   parent_id?: string | null;
   color: string; // HEX string
   is_default: boolean;
-  created_at: string;
+  description?: string;
 }
 
-export type TransactionType = "income" | "expense" | "transfer" | "investment";
+type TransactionType = "income" | "expense" | "transfer" | "investment";
 
-export interface Transaction {
-  id: string;
-  user_id: string;
+interface Transaction extends DbBase {
   account_id: string;
   category_id?: string | null;
   type: TransactionType;
@@ -56,13 +54,9 @@ export interface Transaction {
   notes?: string;
   transaction_date: string; // YYYY-MM-DD
   to_account_id?: string | null; // destination for transfers
-  created_at: string;
-  updated_at: string;
 }
 
-export interface Alert {
-  id: string;
-  user_id: string;
+interface Alert extends DbBase {
   type: "critical" | "warning" | "info";
   title: string;
   message: string;
@@ -71,14 +65,13 @@ export interface Alert {
   is_read: boolean;
   is_dismissed: boolean;
   expires_at?: string;
-  created_at: string;
 }
 
 // Aggregate type to make life easier when using Supabase
-export interface DatabaseEntities {
-  profiles: Profile;
-  accounts: Account;
-  categories: Category;
-  transactions: Transaction;
-  alerts: Alert;
+export interface DataBaseTypes {
+  Profile: Profile;
+  Account: Account;
+  Category: Category;
+  Transaction: Transaction;
+  Alert: Alert;
 }

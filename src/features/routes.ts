@@ -2,6 +2,7 @@ import { BaseRoute, DynamicRoute } from "@/features/shared/types/route-type";
 import { authRoutes } from "@/features/auth/routes";
 import { dashboardRoutes } from "@/features/dashboard/routes";
 import { accountsRoutes } from "@/features/accounts/routes";
+import { categoriesRoutes } from "@/features/categories/routes";
 import { transactionsRoutes } from "@/features/transactions/routes";
 
 /**
@@ -19,6 +20,9 @@ export const appRoutes = {
 
   // Gestión de cuentas financieras
   accounts: accountsRoutes,
+
+  // Gestión de categorías
+  categories: categoriesRoutes,
 
   // Gestión de transacciones
   transactions: transactionsRoutes,
@@ -67,4 +71,10 @@ export type { BaseRoute, DynamicRoute };
 /**
  * Re-exportamos las rutas individuales para imports directos si es necesario
  */
-export { authRoutes, dashboardRoutes, accountsRoutes, transactionsRoutes };
+export {
+  authRoutes,
+  dashboardRoutes,
+  accountsRoutes,
+  categoriesRoutes,
+  transactionsRoutes,
+};

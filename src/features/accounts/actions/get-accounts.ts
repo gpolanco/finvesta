@@ -1,5 +1,5 @@
+import { Account } from "@/features/accounts/types";
 import { createClient } from "@/lib/supabase/server";
-import { Account } from "@/types/database";
 
 export async function getAccounts(): Promise<Account[]> {
   const supabase = await createClient();

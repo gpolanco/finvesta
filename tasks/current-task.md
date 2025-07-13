@@ -3,11 +3,26 @@
 ## 📋 Estado General
 
 **Última actualización**: 2024-12-19  
-**Tarea activa**: Task 001 - Configuración Inicial  
-**Progreso general**: 80% - 4/5 subtasks completados ✅  
-**Próximo subtask**: 001-5 Schema de Base de Datos
+**Tarea activa**: Task 002 - Cuentas y Transacciones  
+**Progreso general**: Task 001 completada ✅, categorías (002-3) completadas ✅  
+**Próximo subtask**: 002-4 Cuentas Edición
 
-## 🔥 Subtask Actual
+## 🎉 **CATEGORÍAS COMPLETADAS** - Task 002-3 ✅
+
+### **Patrones Arquitectónicos Establecidos para Próximas Features:**
+
+- ✅ **Domain-based organization** (`/features/categories/`)
+- ✅ **Server actions** + **Services con ServiceBaseResponse** (nunca lanzan excepciones)
+- ✅ **useOptimistic** para create/update (UX sin flicker)
+- ✅ **Delete con confirmación** clara (sin optimistic)
+- ✅ **FormDialog reutilizable** + **react-hook-form + zod**
+- ✅ **useTransition** + **Toast notifications** para feedback
+
+## 🔥 Subtasks Completados
+
+### 002-3: Sistema de Categorías ✅
+
+**Estado**: ✅ **COMPLETADO** - Base arquitectónica establecida
 
 ### 001-1: Setup Supabase y Variables de Entorno ✅
 
@@ -92,22 +107,41 @@
 2. **002-2**: CRUD de transacciones (60 min)
 3. **002-3**: Sistema de categorías (45 min)
 
+## 🎯 **Próximo Subtask Crítico**
+
+### 002-4: Cuentas Edición
+
+**Estimación**: 45-60 minutos  
+**Objetivo**: Implementar edición de cuentas usando los patrones establecidos en categorías
+
+#### 📋 Plan:
+
+1. Aplicar patrones de categorías a cuentas
+2. AccountFormDialog reutilizable
+3. useOptimistic para create/update
+4. Server actions limpios
+
 ## 📊 Progreso por Tareas
 
 ```
-Task 001: Setup Inicial        [█████████████████] 5/5 subtasks ✅✅✅✅✅
-Task 002: Cuentas/Transacciones [░░░░░░░░░░] 0/6 subtasks (sin desarrollar)
-Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks (sin desarrollar)
-Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks (sin desarrollar)
-Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks (sin desarrollar)
+Task 001: Setup Inicial         [████████████████████] 5/5 subtasks ✅✅✅✅✅
+Task 002: Cuentas/Transacciones [████░░░░░░░░░░░░░░░░] 1/6 subtasks
+  - 002-3: Sistema categorías   [██████████] ✅ COMPLETADO
+  - 002-4: Cuentas edición      [░░░░░░░░░░] ← SIGUIENTE
+Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks
+Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks
+Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 ```
 
-## 🚨 Estado Actual - Listo para Schema BD
+## 🚨 Estado Actual - Listo para Cuentas
 
 **Funcionalidades implementadas y funcionando:**
-• Esquema de base de datos completo con RLS y datos de ejemplo
+• ✅ Setup completo con autenticación robusta
+• ✅ Schema de base de datos con datos de ejemplo  
+• ✅ **Sistema de categorías completo** con patrones establecidos
+• ✅ Arquitectura escalable domain-based
 
-**🎯 Siguiente paso crítico**: Iniciar Task 002 (Cuentas y Transacciones)
+**🎯 Siguiente paso crítico**: Aplicar patrones de categorías a cuentas (002-4)
 
 ## �� Notas de Implementación
 
@@ -130,8 +164,16 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks (s
 
 ---
 
+## 💡 **Lecciones Aplicables a Próximas Features**
+
+1. **Services nunca lanzan excepciones** → Actions limpios sin try-catch
+2. **useOptimistic solo para create/update** → Delete con confirmación
+3. **FormDialog reutilizable** → Patrón establecido para modals
+4. **Domain-based structure** → Escalabilidad garantizada
+5. **Client/Server balance** → Páginas server, listas client cuando necesario
+
 **🎯 Para Cursor**:
 
-1. Próximo paso → Implementar subtask 001-5 (Schema de Base de Datos)
-2. Después → Continuar con Task 002 (Cuentas y Transacciones)
-3. El proyecto está en excelente estado para avanzar a funcionalidades financieras
+1. **Próximo paso** → Implementar 002-4 (Cuentas Edición) usando patrones de categorías
+2. **Arquitectura** → Ya establecida y probada en categorías
+3. **Estado** → Excelente, listo para escalar features financieras

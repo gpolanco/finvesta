@@ -1,29 +1,33 @@
 import { BaseRoute, DynamicRoute } from "@/features/shared/types/route-type";
 
+const accountsBasePath = "/accounts";
+
 export const accountsRoutes = {
   list: {
-    path: "/accounts",
+    path: accountsBasePath,
     title: "My Accounts",
     description: "Manage your bank accounts, investments and crypto",
   } as BaseRoute,
 
   create: {
-    path: "/accounts/create",
+    path: `${accountsBasePath}/create`,
     title: "Add Account",
     description: "Connect a new financial account",
   } as BaseRoute,
 
   detail: {
-    path: "/accounts/:id",
+    path: `${accountsBasePath}/:id`,
     title: "Account Details",
     description: "View transactions and manage specific account",
-    generatePath: (params: { id: string }) => `/accounts/${params.id}`,
+    generatePath: (params: { id: string }) =>
+      `${accountsBasePath}/${params.id}`,
   } as DynamicRoute<{ id: string }>,
 
   edit: {
-    path: "/accounts/:id/edit",
+    path: `${accountsBasePath}/:id/edit`,
     title: "Edit Account",
     description: "Modify account configuration",
-    generatePath: (params: { id: string }) => `/accounts/${params.id}/edit`,
+    generatePath: (params: { id: string }) =>
+      `${accountsBasePath}/${params.id}/edit`,
   } as DynamicRoute<{ id: string }>,
 } as const;

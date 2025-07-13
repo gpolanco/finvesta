@@ -7,6 +7,7 @@ import {
   SidebarInset,
   SidebarProvider,
 } from "@/features/shared/components/ui/sidebar";
+import { Toaster } from "@/features/shared/components/ui/sonner";
 import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
@@ -42,6 +43,7 @@ export default async function DashboardLayout({
           </div>
         </SidebarInset>
       </SidebarProvider>
+      <Toaster />
     </AuthProvider>
   );
 }

@@ -12,15 +12,15 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 - **002-1**: Modelo de cuentas financieras (45 min)
 - **002-2**: CRUD de transacciones (60 min)
+- **002-3**: **Sistema de categorías (45 min)** ✅ **COMPLETADO**
 - **Refactor**: Integración con patrones establecidos
 
-### 🔄 En Progreso
+### 🔄 Próximo
 
-- **002-3**: Sistema de categorías (45 min)
+- **002-4**: Edición y baja de cuentas (30 min) ← **SIGUIENTE**
 
 ### 📋 Pendiente
 
-- **002-4**: Edición y baja de cuentas (30 min)
 - **002-5**: Filtros y búsqueda (30 min)
 - **002-6**: Validaciones y feedback (30 min)
 
@@ -32,6 +32,7 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - **✅ Formateadores**: Utilidades personalizadas con Intl API
 - **✅ UX**: Patrón EmptyContent con children
 - **✅ Responsive**: UI mobile-first y accesible
+- **✅ Arquitectura**: Domain-based con useOptimistic establecido
 
 ## 📋 Subtasks (En orden estricto)
 
@@ -93,11 +94,12 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 #### ✅ Criterios de éxito:
 
-- [ ] Lista de categorías por tipo
-- [ ] Alta, edición y borrado de categorías personalizadas
-- [ ] No se pueden borrar categorías por defecto
-- [ ] Asignación de color y tipo
-- [ ] UI accesible y responsive
+- [x] Lista de categorías por tipo
+- [x] Alta, edición y borrado de categorías personalizadas
+- [x] No se pueden borrar categorías por defecto
+- [x] Asignación de color y tipo
+- [x] UI accesible y responsive
+- [x] **Patrones arquitectónicos establecidos** (useOptimistic, FormDialog, etc.)
 - [ ] Pruebas unitarias mínimas
 
 ---
@@ -110,6 +112,7 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - Permitir desactivar/borrar cuentas (soft delete)
 - Validar que no se pueda borrar una cuenta con saldo >0
 - Feedback inmediato en UI
+- **Aplicar patrones establecidos en categorías** (useOptimistic, FormDialog, etc.)
 
 #### ✅ Criterios de éxito:
 
@@ -152,6 +155,21 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - [ ] Alertas automáticas en UI
 - [ ] Feedback visual inmediato
 - [ ] Pruebas unitarias mínimas
+
+---
+
+## 🏗️ **Patrones Arquitectónicos Establecidos (Categorías)**
+
+### **Para aplicar en próximas features:**
+
+1. **Domain-based organization** (`/features/{domain}/components|actions|services|lib`)
+2. **Services con ServiceBaseResponse** (nunca lanzan excepciones)
+3. **Server actions limpios** (sin try-catch redundante)
+4. **useOptimistic** para create/update (UX sin flicker)
+5. **Delete con confirmación** clara (sin optimistic)
+6. **FormDialog reutilizable** + react-hook-form + zod
+7. **useTransition** + Toast notifications para feedback
+8. **Client/Server balance** (páginas server, listas client cuando necesario)
 
 ---
 

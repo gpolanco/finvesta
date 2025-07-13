@@ -53,7 +53,9 @@ CREATE TABLE IF NOT EXISTS public.categories (
   parent_id UUID REFERENCES public.categories(id),
   color TEXT DEFAULT '#6b7280',
   is_default BOOLEAN DEFAULT false,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  description TEXT
 );
 
 -- === TRANSACTIONS ===

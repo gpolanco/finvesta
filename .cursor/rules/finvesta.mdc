@@ -401,3 +401,40 @@ const debugFinancials = (user: UserData) => {
 ---
 
 🎯 **OBJETIVO FINAL**: App que automatice la estrategia financiera del usuario hacia 100k€ patrimonio neto optimizado en 5 años, con alertas inteligentes que guíen decisiones específicas.
+
+## 🗂️ Patrones de arquitectura: Separación Actions & Services
+
+Para toda feature que requiera lógica de negocio y acceso a datos, se debe separar:
+
+- **services/**: Funciones puras de acceso a datos (CRUD, Supabase, etc). Sin lógica de Next.js ni UI. Reutilizables en tests, scripts, otras server actions.
+- **actions/**: Solo Server Actions de Next.js (funciones asíncronas con "use server"). Usan los services para exponer lógica al frontend (formularios, botones, etc). Pueden hacer revalidatePath, manejo de errores para UI, etc. Una acción por archivo.
+
+**Ventajas:**
+
+- Claridad y separación de responsabilidades
+- Escalabilidad y mantenibilidad
+- Reutilización de lógica de datos
+- Alineado con Next.js 15 y buenas prácticas modernas
+
+**Ejemplo de estructura:**
+
+```
+src/features/<feature>/
+├── actions/
+│   ├── create-<entity>-action.ts
+│   ├── update-<entity>-action.ts
+│   └── delete-<entity>-action.ts
+├── services/
+│   ├── create-<entity>.ts
+│   ├── update-<entity>.ts
+│   ├── delete-<entity>.ts
+│   └── get-<entity>.ts
+```
+
+**Diálogos y formularios:**
+
+- Todos los formularios que se muestren en un modal/dialog deben ser envueltos por un componente común `FormDialog` (en `features/shared/components`).
+- El formulario debe ser un componente separado y reutilizable, sin lógica de modal.
+- Esto asegura consistencia visual, accesibilidad y facilita cambios globales de UX.
+
+Esta separación permite construir lógica financiera compleja, alertas y automatizaciones reutilizando los servicios de datos, mientras que las Server Actions mantienen la integración óptima con la UI y la experiencia Next.js.

@@ -12,6 +12,7 @@ import {
   IconSettings,
   IconHelp,
   IconSearch,
+  IconTag,
 } from "@tabler/icons-react";
 
 import { appRoutes } from "@/features/routes";
@@ -42,6 +43,11 @@ const finvestaData = {
       title: "My Accounts",
       url: appRoutes.accounts.list.path,
       icon: IconCreditCard,
+    },
+    {
+      title: "Categories",
+      url: appRoutes.categories.list.path,
+      icon: IconTag,
     },
     {
       title: "Transactions",
