@@ -4,6 +4,8 @@
  * Keep them in sync whenever the database schema changes.
  */
 
+import type { AccountType } from "@/features/shared/types/account-types";
+
 interface Profile {
   id: string;
   name: string;
@@ -17,7 +19,6 @@ interface Profile {
   updated_at: string; // ISO timestamp
 }
 
-type AccountType = "bank" | "crypto" | "investment" | "cash" | "savings";
 interface DbBase {
   id: string;
   user_id: string;
@@ -66,6 +67,9 @@ interface Alert extends DbBase {
   is_dismissed: boolean;
   expires_at?: string;
 }
+
+// Individual exports for direct use
+export type { Profile, Account, Category, Transaction, Alert, TransactionType };
 
 // Aggregate type to make life easier when using Supabase
 export interface DataBaseTypes {

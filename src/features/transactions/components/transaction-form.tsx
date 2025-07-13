@@ -39,7 +39,8 @@ import {
 import { createTransaction } from "@/features/transactions/actions/create-transaction";
 import { updateTransaction } from "@/features/transactions/actions/update-transaction";
 import type { Transaction } from "@/features/transactions/types";
-import type { Account, Category } from "@/features/accounts/types";
+import type { Account } from "@/features/accounts/types";
+import type { Category } from "@/features/categories/types";
 
 // Helper function to format dates using Intl
 const formatDate = (

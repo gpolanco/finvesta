@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { DEFAULT_CURRENCY } from "@/features/shared/types/currency-types";
 
 export async function migrateSeedDataToCurrentUser() {
   const supabase = await createClient();
@@ -61,7 +62,7 @@ export async function migrateSeedDataToCurrentUser() {
       type: "bank" as const,
       provider: "Sabadell",
       balance: 12000.0,
-      currency: "EUR",
+      currency: DEFAULT_CURRENCY,
       is_active: true,
     },
     {
@@ -70,7 +71,7 @@ export async function migrateSeedDataToCurrentUser() {
       type: "bank" as const,
       provider: "BBVA",
       balance: 10000.0,
-      currency: "EUR",
+      currency: DEFAULT_CURRENCY,
       is_active: true,
     },
     {
@@ -79,7 +80,7 @@ export async function migrateSeedDataToCurrentUser() {
       type: "crypto" as const,
       provider: "Binance",
       balance: 10000.0,
-      currency: "EUR",
+      currency: DEFAULT_CURRENCY,
       is_active: true,
     },
     {
@@ -88,7 +89,7 @@ export async function migrateSeedDataToCurrentUser() {
       type: "investment" as const,
       provider: "MyInvestor",
       balance: 2500.0,
-      currency: "EUR",
+      currency: DEFAULT_CURRENCY,
       is_active: true,
     },
   ];

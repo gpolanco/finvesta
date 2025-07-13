@@ -1,27 +1,25 @@
+import {
+  DEFAULT_CURRENCY,
+  getCurrencySymbol,
+  type Currency,
+} from "@/features/shared/types/currency-types";
+
 interface FormatNumberProps {
   value: number | string;
   options?: Intl.NumberFormatOptions;
   style?: "currency" | "percent" | "decimal";
-  currency?: string;
+  currency?: Currency;
   locale?: string;
   prefix?: string;
   suffix?: string;
   showCurrency?: boolean;
 }
 
-const currencySymbols = {
-  EUR: "€",
-  USD: "$",
-  GBP: "£",
-  JPY: "¥",
-  CNY: "¥",
-};
-
 export function FormatNumber({
   value,
   options,
   style = "decimal",
-  currency = "EUR",
+  currency = DEFAULT_CURRENCY,
   locale = "es-ES",
   prefix,
   suffix,
@@ -40,8 +38,6 @@ export function FormatNumber({
   );
 
   return `${prefix}${formattedNumber}${suffix}${
-    showCurrency
-      ? currencySymbols[currency as keyof typeof currencySymbols]
-      : ""
+    showCurrency ? getCurrencySymbol(currency) : ""
   }`;
 }

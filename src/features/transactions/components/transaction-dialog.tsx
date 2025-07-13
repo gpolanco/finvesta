@@ -12,7 +12,8 @@ import { Button } from "@/features/shared/components/ui/button";
 import { Plus } from "lucide-react";
 import { TransactionForm } from "./transaction-form";
 import type { Transaction } from "@/features/transactions/types";
-import type { Account, Category } from "@/features/accounts/types";
+import type { Account } from "@/features/accounts/types";
+import type { Category } from "@/features/categories/types";
 
 interface TransactionDialogProps {
   accounts: Account[];

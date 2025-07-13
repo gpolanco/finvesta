@@ -10,10 +10,11 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 ### ✅ Completado
 
-- **002-1**: Modelo de cuentas financieras (45 min)
-- **002-2**: CRUD de transacciones (60 min)
+- **002-1**: Modelo de cuentas financieras (45 min) ✅
+- **002-2**: CRUD de transacciones (60 min) ✅
 - **002-3**: **Sistema de categorías (45 min)** ✅ **COMPLETADO**
-- **Refactor**: Integración con patrones establecidos
+- **002-X**: **Centralización de tipos (60 min)** ✅ **COMPLETADO ADICIONAL**
+- **Refactor**: Integración con patrones establecidos ✅
 
 ### 🔄 Próximo
 
@@ -24,8 +25,12 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - **002-5**: Filtros y búsqueda (30 min)
 - **002-6**: Validaciones y feedback (30 min)
 
-### 🎯 Logros Adicionales
+### 🎯 Logros Adicionales ✅
 
+- **✅ Centralización de tipos**: Account types y currency types centralizados
+- **✅ English-first development**: Toda la UI traducida a inglés
+- **✅ Visual consistency**: Colores e iconos centralizados
+- **✅ Funciones utilitarias**: Type-safe utilities para manipulación de tipos
 - **✅ Refactorización**: Transactions como feature separado
 - **✅ Patrones**: Implementación de nuevos patrones de UI
 - **✅ Rutas**: Sistema de rutas centralizado
@@ -36,7 +41,7 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 ## 📋 Subtasks (En orden estricto)
 
-### 002-1: Modelo de cuentas financieras
+### 002-1: Modelo de cuentas financieras ✅
 
 **⏱️ 45 min**
 
@@ -59,7 +64,7 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 ---
 
-### 002-2: CRUD de transacciones
+### 002-2: CRUD de transacciones ✅
 
 **⏱️ 60 min**
 
@@ -82,7 +87,7 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 ---
 
-### 002-3: Sistema de categorías
+### 002-3: Sistema de categorías ✅
 
 **⏱️ 45 min**
 
@@ -100,7 +105,39 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - [x] Asignación de color y tipo
 - [x] UI accesible y responsive
 - [x] **Patrones arquitectónicos establecidos** (useOptimistic, FormDialog, etc.)
-- [ ] Pruebas unitarias mínimas
+- [x] Pruebas unitarias mínimas
+
+---
+
+### 🆕 002-X: Centralización de Tipos ✅
+
+**⏱️ 60 min** - **SUBTASK ADICIONAL COMPLETADO**
+
+- Centralizar account types y currency types en `features/shared/types/`
+- Traducir toda la aplicación a inglés (English-first development)
+- Centralizar colores e iconos para account types
+- Crear funciones utilitarias type-safe
+- Eliminar hardcoding en toda la aplicación
+
+#### ✅ Criterios de éxito:
+
+- [x] Account types centralizados con constantes, schemas, colores e iconos
+- [x] Currency types separados en archivo independiente
+- [x] Traducción completa a inglés (UI, validaciones, labels)
+- [x] Colores e iconos centralizados por tipo de cuenta
+- [x] Funciones utilitarias: `getAccountTypeColors()`, `getAccountTypeIcon()`, etc.
+- [x] Eliminación de hardcoding en toda la aplicación
+- [x] Type safety con schemas Zod centralizados
+
+#### 🎨 **Mapeo de Colores Centralizados**:
+
+```
+BANK:       blue   (Banknote icon)
+CRYPTO:     yellow (Bitcoin icon)
+INVESTMENT: green  (PiggyBank icon)
+SAVINGS:    purple (Wallet icon)
+CASH:       gray   (CreditCard icon)
+```
 
 ---
 
@@ -112,7 +149,8 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - Permitir desactivar/borrar cuentas (soft delete)
 - Validar que no se pueda borrar una cuenta con saldo >0
 - Feedback inmediato en UI
-- **Aplicar patrones establecidos en categorías** (useOptimistic, FormDialog, etc.)
+- **Aplicar patrones establecidos** (useOptimistic, FormDialog, etc.)
+- **Usar tipos centralizados** de account-types.ts
 
 #### ✅ Criterios de éxito:
 
@@ -120,6 +158,7 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - [ ] Baja/desactivación de cuentas
 - [ ] No se puede borrar cuenta con saldo >0
 - [ ] Feedback inmediato
+- [ ] Usar funciones centralizadas para colores e iconos
 - [ ] Pruebas unitarias mínimas
 
 ---
@@ -158,24 +197,40 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 
 ---
 
-## 🏗️ **Patrones Arquitectónicos Establecidos (Categorías)**
+## 🏗️ **Patrones Arquitectónicos Establecidos**
 
-### **Para aplicar en próximas features:**
+### **✅ Patrones Completados - Para replicar en próximas features:**
 
-1. **Domain-based organization** (`/features/{domain}/components|actions|services|lib`)
-2. **Services con ServiceBaseResponse** (nunca lanzan excepciones)
-3. **Server actions limpios** (sin try-catch redundante)
-4. **useOptimistic** para create/update (UX sin flicker)
-5. **Delete con confirmación** clara (sin optimistic)
-6. **FormDialog reutilizable** + react-hook-form + zod
-7. **useTransition** + Toast notifications para feedback
-8. **Client/Server balance** (páginas server, listas client cuando necesario)
+1. **🔧 Centralized Types** (`features/shared/types/`)
+
+   - Constantes, schemas Zod, opciones de formulario
+   - Colores e iconos centralizados con funciones utilitarias
+   - English-first development establecido
+   - Type-safe utilities para manipulación
+
+2. **📂 Domain-based organization** (`/features/{domain}/components|actions|services|lib`)
+
+3. **🔧 Services con ServiceBaseResponse** (nunca lanzan excepciones)
+
+4. **🚀 Server actions limpios** (sin try-catch redundante)
+
+5. **⚡ useOptimistic** para create/update (UX sin flicker)
+
+6. **🗑️ Delete con confirmación** clara (sin optimistic)
+
+7. **📝 FormDialog reutilizable** + react-hook-form + zod
+
+8. **🔄 useTransition** + Toast notifications para feedback
+
+9. **⚖️ Client/Server balance** (páginas server, listas client cuando necesario)
 
 ---
 
 ## ✅ Criterios de Éxito Globales
 
 - [x] Gestión completa de cuentas y transacciones
+- [x] **Tipos centralizados y English-first development** ✅
+- [x] **Visual consistency con colores e iconos centralizados** ✅
 - [x] UI responsive y accesible
 - [ ] Validaciones y feedback financiero
 - [x] TypeScript sin warnings
@@ -198,7 +253,10 @@ git add .
 git commit -m "feat(accounts): implementa Task 002 - cuentas y transacciones
 
 - Modelo de cuentas financieras y CRUD de transacciones
-- Sistema de categorías y validaciones de negocio
+- Sistema de categorías y centralización de tipos
+- Account types y currency types centralizados
+- English-first development establecido
+- Colores e iconos centralizados con funciones utilitarias
 - UI responsive y feedback inmediato
 - Pruebas unitarias para cada subtask
 

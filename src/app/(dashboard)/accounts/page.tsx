@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { AccountList } from "@/features/accounts/components/account-list";
 import { AccountListSkeleton } from "@/features/accounts/components/account-skeleton";
+import { AccountFormDialog } from "@/features/accounts/components/account-form-dialog";
 import { getAccounts } from "@/features/accounts/actions/get-accounts";
-import { accountsRoutes, appRoutes } from "@/features/routes";
+import { appRoutes } from "@/features/routes";
 import { PageWrapper } from "@/features/shared/components/page-wrapper";
 import { PiggyBank } from "lucide-react";
 import { EmptyContent } from "@/features/shared/components/empty-content";
@@ -15,14 +16,15 @@ export default async function AccountsPage() {
       <PageWrapper
         title={appRoutes.accounts.list.title}
         description={appRoutes.accounts.list.description}
+        actions={<AccountFormDialog />}
       >
         <EmptyContent
           title="You don't have any accounts registered"
           description="Add your first account to start managing your finances and tracking your portfolio"
           icon={PiggyBank}
-          buttonText="Add account"
-          createPath={accountsRoutes.create.path}
-        />
+        >
+          <AccountFormDialog />
+        </EmptyContent>
       </PageWrapper>
     );
   }
@@ -31,6 +33,7 @@ export default async function AccountsPage() {
     <PageWrapper
       title={appRoutes.accounts.list.title}
       description={appRoutes.accounts.list.description}
+      actions={<AccountFormDialog />}
     >
       <Suspense fallback={<AccountListSkeleton />}>
         <AccountList accounts={accounts} />

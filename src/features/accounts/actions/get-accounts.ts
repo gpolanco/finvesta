@@ -1,3 +1,5 @@
+"use server";
+
 import { Account } from "@/features/accounts/types";
 import { createClient } from "@/lib/supabase/server";
 

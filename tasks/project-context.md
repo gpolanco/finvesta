@@ -1,80 +1,162 @@
-# 📊 Contexto del Proyecto: Finvesta - App de Finanzas Personales
+# 🏗️ Finvesta - Contexto del Proyecto
 
-## 🎯 Visión General
+## 📋 Estado Actual
 
-**Finvesta** es una aplicación web para registrar transacciones financieras y visualizar KPIs que ayuden a tomar decisiones informadas hacia una estrategia financiera a 5 años.
+**Proyecto**: Aplicación de gestión financiera personal  
+**Stack**: Next.js 15 + React 19 + Supabase + TypeScript + TailwindCSS  
+**Progreso**: Task 002 avanzada (70%) - Listo para edición de cuentas
 
-## 👤 Perfil del Usuario Principal
+## 💰 Contexto Financiero
 
-- **Edad**: 45 años
-- **Ingreso mensual**: 3.730 €
-- **Ahorro objetivo**: 1.500 €/mes
-- **Situación actual**:
-  - ~22.000 € en cuentas sin rentabilidad (Sabadell, BBVA)
-  - ~10.000 € en criptomonedas
-  - 100 €/mes en fondo indexado (Fidelity MSCI World – MyInvestor)
-  - 200 €/mes en criptomonedas
+- **Patrimonio objetivo**: 22.000€ liquidez + 10.000€ cripto
+- **Ingresos**: 3.730€/mes
+- **Ahorro objetivo**: 1.500€/mes
+- **Gestión**: Cuentas bancarias, cripto, inversiones, ahorros, efectivo
 
-## 🎯 Objetivos Estratégicos
+## 🎯 **PATRONES OBLIGATORIOS** - No Retroceder
 
-### Objetivo a 5 años
+> ⚠️ **CRÍTICO**: Estos patrones están validados y DEBEN aplicarse en todas las nuevas features
 
-- Optimizar liquidez estancada (máximo 20.000 € sin rentabilidad - actualmente 22.000€)
-- Mantener cripto <15% del patrimonio total
-- Alcanzar 100.000 € de patrimonio neto
-- Diversificar en fondos indexados, letras del tesoro, cuentas remuneradas
+### 🔧 **1. Centralized Types** (OBLIGATORIO)
 
-### Objetivos mensuales
+```typescript
+// ✅ SIEMPRE usar tipos centralizados
+import {
+  ACCOUNT_TYPES,
+  getAccountTypeIcon,
+  getAccountTypeColors,
+} from "@/features/shared/types";
 
-- Mantener ahorro de 1.500 €/mes
-- Monitorear distribución de activos
-- Detectar desequilibrios automáticamente
-
-## 🏗️ Stack Tecnológico
-
-> Ver detalles completos en `.cursor/rules/finvesta.mdc`
-
-- **Stack fijo**: Next.js 15 + Supabase + Shadcn/UI + Recharts
-
-## 📊 KPIs Críticos
-
-1. **Patrimonio neto mensual**
-2. **% distribución de activos**
-3. **Ahorro mensual vs objetivo (1.500 €)**
-4. **% cripto del patrimonio total**
-5. **Liquidez sin rentabilidad**
-6. **Rentabilidad acumulada por inversión**
-
-## 🚨 Alertas Automáticas
-
-- Liquidez sin rentabilidad > 20.000 € (actual: 22.000€)
-- % cripto > 15%
-- Ahorro mensual < 1.500 €
-- Gasto > ingreso mensual
-
-## 📂 Estructura del Proyecto
-
-```
-src/
-├── app/             # Rutas del App Router
-├── features/        # Finanzas, cuentas, inversiones, alertas
-├── lib/             # Helpers, gráficos, cálculos financieros
-├── db/              # Schema y conexión Supabase
-└── config/          # Constantes financieras (límites, objetivos)
+// ❌ NUNCA hardcodear
+const color = account.type === "bank" ? "blue" : "gray"; // MAL
 ```
 
-## 🎨 Principios de Diseño
+### 🌍 **2. English-First Development** (OBLIGATORIO)
 
-- **Simplicidad**: Registro de transacciones en <10 segundos
-- **Claridad**: Dashboard con visión inmediata del progreso
-- **Proactividad**: Alertas que guíen decisiones
-- **Escalabilidad**: Preparado para funcionalidades avanzadas
+- Toda UI, validaciones, labels en inglés
+- Mensajes de error en inglés
+- Comentarios de código en inglés
+- **Nunca mezclar idiomas**
 
-## 📋 Criterios de Éxito
+### 📝 **3. FormDialog Pattern** (OBLIGATORIO)
 
-✅ Registro intuitivo de transacciones
-✅ Dashboard claro con KPIs críticos
-✅ Alertas automáticas funcionando
-✅ Seguimiento del objetivo a 5 años
-✅ UI responsive (desktop + móvil)
-✅ Autenticación segura
+```typescript
+// ✅ Patrón establecido en categories
+<FormDialog account={account} onOptimisticUpdate={handleOptimistic} />
+```
+
+### ⚡ **4. useOptimistic Rules** (OBLIGATORIO)
+
+- ✅ **Create/Update**: Con `useOptimistic` para UX instantánea
+- ❌ **Delete**: Sin optimistic, con modal de confirmación
+
+### 🔄 **5. Server Actions Pattern** (OBLIGATORIO)
+
+```typescript
+// ✅ Actions limpios
+export async function createAccount(data: FormData) {
+  const result = await createAccountService(data);
+  if (!result.success) {
+    return { error: result.error };
+  }
+  revalidatePath("/accounts");
+  return { success: true };
+}
+```
+
+### 🛡️ **6. Services Pattern** (OBLIGATORIO)
+
+```typescript
+// ✅ Services NUNCA lanzan excepciones
+export async function createAccountService(
+  data: CreateAccountData
+): Promise<ServiceBaseResponse<Account>> {
+  // Lógica del servicio
+  return { success: true, data: account };
+}
+```
+
+### 🎨 **7. Visual Consistency** (OBLIGATORIO)
+
+```typescript
+// ✅ Usar funciones centralizadas
+const IconComponent = getAccountTypeIcon(account.type);
+const badgeColors = getAccountTypeBadgeColor(account.type);
+
+// ❌ NUNCA hardcodear colores/iconos
+```
+
+### 📱 **8. UI Standards** (OBLIGATORIO)
+
+- **Mobile-first**: Todas las interfaces responsive
+- **useTransition + Toast**: Para feedback inmediato
+- **Empty states**: Con CTA y iconos
+- **Accessibility**: Labels, ARIA roles
+
+### 🏗️ **9. Domain Structure** (OBLIGATORIO)
+
+```
+features/{domain}/
+├── components/
+├── actions/
+├── services/
+├── lib/validations.ts
+└── types.ts
+```
+
+### ✅ **10. Type Safety** (OBLIGATORIO)
+
+```typescript
+// ✅ Validaciones Zod centralizadas
+const schema = z.object({
+  type: accountTypeSchema, // Desde shared/types
+  currency: currencySchema,
+});
+
+// ✅ Type guards
+if (!isValidAccountType(type)) return;
+```
+
+## 🚨 **Anti-Patterns - NO HACER**
+
+❌ Hardcodear tipos de cuenta: `"bank"`, `"crypto"`  
+❌ Hardcodear colores: `"text-blue-600"`  
+❌ UI en español  
+❌ useOptimistic en deletes  
+❌ try-catch en server actions  
+❌ Services que lanzan excepciones  
+❌ Componentes no responsive  
+❌ Schemas Zod duplicados
+
+## 🎯 **Próximas Tareas - Aplicar Patrones**
+
+### 002-4: Account Editing (SIGUIENTE)
+
+**Checklist obligatorio**:
+
+- [ ] Usar `AccountFormDialog` reutilizable
+- [ ] Aplicar `useOptimistic` para updates
+- [ ] Usar tipos centralizados: `getAccountTypeIcon()`, `getAccountTypeBadgeColor()`
+- [ ] Server actions limpios sin try-catch
+- [ ] Services con `ServiceBaseResponse`
+- [ ] UI en inglés
+- [ ] Delete con modal de confirmación (sin optimistic)
+- [ ] Mobile-first responsive
+
+### Futuras Tareas
+
+- Aplicar estos mismos patrones en transactions, dashboard, alerts
+- **No reinventar**: Reutilizar FormDialog, colores centralizados, patterns establecidos
+
+---
+
+## 📚 Referencias Rápidas
+
+- **Tipos centralizados**: `src/features/shared/types/`
+- **FormDialog**: `src/features/categories/components/category-form-dialog.tsx`
+- **Services**: `src/features/categories/services/`
+- **Actions**: `src/features/categories/actions/`
+
+---
+
+🎯 **Objetivo**: Mantener consistencia arquitectónica y no retroceder en patrones ya validados.

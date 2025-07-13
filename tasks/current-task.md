@@ -4,14 +4,26 @@
 
 **Última actualización**: 2024-12-19  
 **Tarea activa**: Task 002 - Cuentas y Transacciones  
-**Progreso general**: Task 001 completada ✅, categorías (002-3) completadas ✅  
+**Progreso general**: Task 001 completada ✅, categorías (002-3) completadas ✅, **tipos centralizados** ✅  
 **Próximo subtask**: 002-4 Cuentas Edición
 
-## 🎉 **CATEGORÍAS COMPLETADAS** - Task 002-3 ✅
+## 🎉 **WORK COMPLETED** - Nuevos Patrones Arquitectónicos ✅
+
+### **🔧 CENTRALIZACIÓN DE TIPOS COMPLETADA** - Task 002 Adicional ✅
+
+- ✅ **Account Types centralizados** en `features/shared/types/account-types.ts`
+- ✅ **Currency Types centralizados** en `features/shared/types/currency-types.ts`
+- ✅ **Traducción completa a inglés** (English-first development establecido)
+- ✅ **Colores e iconos centralizados** para account types
+- ✅ **Funciones utilitarias** para manipulación de tipos
+- ✅ **Eliminación de hardcoding** en toda la aplicación
 
 ### **Patrones Arquitectónicos Establecidos para Próximas Features:**
 
 - ✅ **Domain-based organization** (`/features/categories/`)
+- ✅ **Centralized types** en `features/shared/types/` con utilidades
+- ✅ **English-first development** (toda la UI en inglés)
+- ✅ **Visual consistency** (colores e iconos centralizados)
 - ✅ **Server actions** + **Services con ServiceBaseResponse** (nunca lanzan excepciones)
 - ✅ **useOptimistic** para create/update (UX sin flicker)
 - ✅ **Delete con confirmación** clara (sin optimistic)
@@ -19,6 +31,29 @@
 - ✅ **useTransition** + **Toast notifications** para feedback
 
 ## 🔥 Subtasks Completados
+
+### 🆕 **Centralización de Tipos (Adicional)** ✅
+
+**Estado**: ✅ **COMPLETADO** - Arquitectura de tipos establecida
+
+#### ✅ Logros principales:
+
+- **Account Types**: Constantes, schemas Zod, opciones de formulario, colores e iconos
+- **Currency Types**: Separados en archivo independiente con utilidades completas
+- **Traducción completa**: Toda la aplicación ahora en inglés
+- **Eliminación de hardcoding**: Colores e iconos ahora centralizados
+- **Funciones utilitarias**: `getAccountTypeColors()`, `getAccountTypeIcon()`, etc.
+- **Type safety**: Schemas Zod y validaciones centralizadas
+
+#### 🎨 **Colores Centralizados por Tipo de Cuenta**:
+
+```
+BANK:       blue   (Banknote icon)
+CRYPTO:     yellow (Bitcoin icon)
+INVESTMENT: green  (PiggyBank icon)
+SAVINGS:    purple (Wallet icon)
+CASH:       gray   (CreditCard icon)
+```
 
 ### 002-3: Sistema de Categorías ✅
 
@@ -103,9 +138,9 @@
 
 #### 🎯 Próximos 3 subtasks de Task 002:
 
-1. **002-1**: Modelo de cuentas financieras (45 min)
-2. **002-2**: CRUD de transacciones (60 min)
-3. **002-3**: Sistema de categorías (45 min)
+1. **002-1**: Modelo de cuentas financieras (45 min) ✅
+2. **002-2**: CRUD de transacciones (60 min) ✅
+3. **002-3**: Sistema de categorías (45 min) ✅
 
 ## 🎯 **Próximo Subtask Crítico**
 
@@ -120,14 +155,19 @@
 2. AccountFormDialog reutilizable
 3. useOptimistic para create/update
 4. Server actions limpios
+5. **Usar tipos centralizados** de account-types.ts
 
 ## 📊 Progreso por Tareas
 
 ```
 Task 001: Setup Inicial         [████████████████████] 5/5 subtasks ✅✅✅✅✅
-Task 002: Cuentas/Transacciones [████░░░░░░░░░░░░░░░░] 1/6 subtasks
+Task 002: Cuentas/Transacciones [████████████░░░░░░░░] 4/6 subtasks
+  - 002-1: Modelo cuentas       [██████████] ✅ COMPLETADO
+  - 002-2: CRUD transacciones   [██████████] ✅ COMPLETADO
   - 002-3: Sistema categorías   [██████████] ✅ COMPLETADO
+  - 002-X: Tipos centralizados  [██████████] ✅ COMPLETADO (NUEVO)
   - 002-4: Cuentas edición      [░░░░░░░░░░] ← SIGUIENTE
+  - 002-5: Filtros              [░░░░░░░░░░]
 Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks
 Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks
 Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
@@ -139,11 +179,31 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 • ✅ Setup completo con autenticación robusta
 • ✅ Schema de base de datos con datos de ejemplo  
 • ✅ **Sistema de categorías completo** con patrones establecidos
+• ✅ **Tipos centralizados** (account types, currency types) ✅
+• ✅ **English-first development** establecido ✅
+• ✅ **Colores e iconos centralizados** para account types ✅
 • ✅ Arquitectura escalable domain-based
 
 **🎯 Siguiente paso crítico**: Aplicar patrones de categorías a cuentas (002-4)
 
-## �� Notas de Implementación
+## 📚 Notas de Implementación
+
+**✅ Nuevos patrones establecidos:**
+
+### **🔧 Centralización de Tipos (`features/shared/types/`)**
+
+- **account-types.ts**: Constantes, schemas, colores, iconos, utilidades
+- **currency-types.ts**: Monedas separadas con validaciones
+- **Funciones utilitarias**: Type-safe para manipulación de tipos
+- **English-first**: Toda la UI y validaciones en inglés
+- **Eliminación hardcoding**: Una sola fuente de verdad
+
+### **🎨 Visual Consistency**
+
+- Colores centralizados para cada tipo de cuenta
+- Iconos de Lucide React consistentes
+- Funciones utilitarias: `getAccountTypeColors()`, `getAccountTypeIcon()`
+- Badge styling centralizado
 
 **✅ Correcciones y mejoras realizadas:**
 
@@ -171,9 +231,12 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 3. **FormDialog reutilizable** → Patrón establecido para modals
 4. **Domain-based structure** → Escalabilidad garantizada
 5. **Client/Server balance** → Páginas server, listas client cuando necesario
+6. **🆕 Centralized types** → Una sola fuente de verdad para tipos, colores, iconos
+7. **🆕 English-first development** → UI profesional y mantenible
+8. **🆕 Visual consistency** → Colores e iconos desde funciones utilitarias
 
 **🎯 Para Cursor**:
 
-1. **Próximo paso** → Implementar 002-4 (Cuentas Edición) usando patrones de categorías
-2. **Arquitectura** → Ya establecida y probada en categorías
+1. **Próximo paso** → Implementar 002-4 (Cuentas Edición) usando patrones establecidos
+2. **Arquitectura** → Sólida con tipos centralizados y English-first
 3. **Estado** → Excelente, listo para escalar features financieras
