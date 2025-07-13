@@ -1,13 +1,14 @@
 import type { Account, Category } from "@/features/accounts/types";
+import type { TransactionType } from "@/features/shared/types/transaction-types";
 
 // Transaction types for forms (using camelCase)
 export type Transaction = {
   id: string;
   accountId: string;
-  categoryId: string | null;
+  categoryId: string;
   amount: number;
   description: string;
-  transactionType: "income" | "expense" | "investment";
+  transactionType: TransactionType;
   transactionDate: string;
   createdAt: string;
   updatedAt: string;
@@ -23,7 +24,7 @@ export type CreateTransactionData = {
   categoryId: string;
   amount: number;
   description: string;
-  transactionType: "income" | "expense" | "investment";
+  transactionType: TransactionType;
   transactionDate: string;
 };
 

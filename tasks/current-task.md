@@ -4,23 +4,37 @@
 
 **Última actualización**: 2024-12-19  
 **Tarea activa**: Task 002 - Cuentas y Transacciones  
-**Progreso general**: Task 001 completada ✅, categorías (002-3) completadas ✅, **tipos centralizados** ✅  
-**Próximo subtask**: 002-4 Cuentas Edición
+**Progreso general**: Task 001 completada ✅, **Task 002 CASI COMPLETA** ✅  
+**Próximo subtask**: 002-5 Filtros y búsqueda
 
-## 🎉 **WORK COMPLETED** - Nuevos Patrones Arquitectónicos ✅
+## 🎉 **MAJOR MILESTONE** - Account System COMPLETADO ✅
 
-### **🔧 CENTRALIZACIÓN DE TIPOS COMPLETADA** - Task 002 Adicional ✅
+### **🔧 TASK 002-4: ACCOUNT EDITING COMPLETADO** ✅
 
-- ✅ **Account Types centralizados** en `features/shared/types/account-types.ts`
-- ✅ **Currency Types centralizados** en `features/shared/types/currency-types.ts`
-- ✅ **Traducción completa a inglés** (English-first development establecido)
-- ✅ **Colores e iconos centralizados** para account types
-- ✅ **Funciones utilitarias** para manipulación de tipos
-- ✅ **Eliminación de hardcoding** en toda la aplicación
+**¡DESCUBIERTO**: La funcionalidad ya estaba implementada siguiendo TODOS los patrones establecidos!
+
+#### ✅ **Verificación de Patrones Cumplidos:**
+
+- ✅ **Centralized Types**: Usa `getAccountTypeIcon()`, `getAccountTypeColors()`, no hardcoding
+- ✅ **English-first**: Toda UI en inglés ("Edit account", "Delete account", etc.)
+- ✅ **FormDialog reutilizable**: `AccountFormDialog` maneja create Y edit
+- ✅ **useOptimistic**: Create/update con UX instantánea, delete sin optimistic
+- ✅ **Server actions limpios**: Sin try-catch, usan ServiceBaseResponse
+- ✅ **Services garantizados**: Balance validation, soft/hard delete inteligente
+- ✅ **Visual consistency**: Colores e iconos centralizados
+- ✅ **Mobile-first responsive**: UI completamente adaptativa
+- ✅ **Type safety**: Schemas Zod, imports centralizados
+
+#### 🛡️ **Validaciones de Negocio Implementadas:**
+
+- ✅ No delete con balance > 0 (mensaje claro al usuario)
+- ✅ Soft delete si hay transacciones, hard delete si no
+- ✅ Verificación de ownership y autenticación
+- ✅ Modal de confirmación para deletes
 
 ### **Patrones Arquitectónicos Establecidos para Próximas Features:**
 
-- ✅ **Domain-based organization** (`/features/categories/`)
+- ✅ **Domain-based organization** (`/features/accounts/`)
 - ✅ **Centralized types** en `features/shared/types/` con utilidades
 - ✅ **English-first development** (toda la UI en inglés)
 - ✅ **Visual consistency** (colores e iconos centralizados)
@@ -29,6 +43,8 @@
 - ✅ **Delete con confirmación** clara (sin optimistic)
 - ✅ **FormDialog reutilizable** + **react-hook-form + zod**
 - ✅ **useTransition** + **Toast notifications** para feedback
+- ✅ **🆕 System Consistency**: Todos los transaction types requieren categorías (no casos especiales)
+- ✅ **🆕 No Conditional Logic**: Preferir arquitectura consistente sobre lógica condicional compleja
 
 ## 🔥 Subtasks Completados
 
@@ -55,9 +71,58 @@ SAVINGS:    purple (Wallet icon)
 CASH:       gray   (CreditCard icon)
 ```
 
+### 002-1: Modelo de cuentas financieras ✅
+
+**Estado**: ✅ **COMPLETADO**
+
+### 002-2: CRUD de transacciones ✅
+
+**Estado**: ✅ **COMPLETADO**
+
 ### 002-3: Sistema de Categorías ✅
 
-**Estado**: ✅ **COMPLETADO** - Base arquitectónica establecida
+**Estado**: ✅ **COMPLETADO** - Base arquitectónica establecida + **TRANSFER CATEGORIES IMPLEMENTADO** ✅
+
+#### 🆕 **MAJOR UPDATE**: Transfer Categories Implementation ✅
+
+**Problema identificado**: Transfers no tenían categorías disponibles, causando inconsistencias en el sistema.
+
+**Solución implementada**:
+
+- ✅ **Category Types ampliado**: Agregado `TRANSFER: "transfer"` a `CATEGORY_TYPES`
+- ✅ **Database schema actualizado**: Constraint permite `'transfer'` en categories.type
+- ✅ **Categorías seed para transfers**: Account Transfer, Investment Rebalancing, Loan Payment, Savings Allocation
+- ✅ **Código simplificado**: Eliminada toda lógica condicional que manejaba transfers como casos especiales
+- ✅ **Sistema consistente**: Ahora TODOS los transaction types requieren categorías
+- ✅ **Arquitectura escalable**: Nuevos transaction types automáticamente funcionarán
+
+**Archivos actualizados**:
+
+- `src/features/categories/types.ts` - TRANSFER type agregado
+- `src/features/transactions/components/transaction-form.tsx` - Lógica condicional eliminada
+- `src/features/transactions/lib/validations.ts` - Validaciones simplificadas
+- `src/features/transactions/types.ts` - categoryId siempre requerido
+- `src/features/transactions/services/*` - Null handling removido
+- `src/features/transactions/transaction-mapper.ts` - Simplificado
+- `supabase/001_initial.sql` - Constraint actualizado
+- `supabase/003_add_transfer_categories.sql` - Migración creada
+
+**Resultado**: Sistema más limpio, predecible y escalable.
+
+### 🆕 002-4: Edición y baja de cuentas ✅
+
+**Estado**: ✅ **COMPLETADO** - **YA ESTABA IMPLEMENTADO**
+
+#### ✅ Funcionalidades verificadas:
+
+- ✅ **AccountForm**: Soporta create Y edit mode con validaciones
+- ✅ **AccountFormDialog**: Modal reutilizable con useOptimistic
+- ✅ **DeleteAccountDialog**: Validación balance + confirmación
+- ✅ **AccountList**: Botones edit/delete integrados
+- ✅ **Server Actions**: Update y delete con revalidation
+- ✅ **Services**: Balance validation, soft/hard delete
+- ✅ **English UI**: "Edit account", "Cannot delete account with positive balance"
+- ✅ **Centralized styling**: Usando funciones de account-types.ts
 
 ### 001-1: Setup Supabase y Variables de Entorno ✅
 
@@ -136,44 +201,37 @@ CASH:       gray   (CreditCard icon)
 - [x] Datos de ejemplo usuario añadidos (22k€ liquidez, 10k€ cripto)
 - [x] Build sin errores con tipos de BD
 
-#### 🎯 Próximos 3 subtasks de Task 002:
-
-1. **002-1**: Modelo de cuentas financieras (45 min) ✅
-2. **002-2**: CRUD de transacciones (60 min) ✅
-3. **002-3**: Sistema de categorías (45 min) ✅
-
 ## 🎯 **Próximo Subtask Crítico**
 
-### 002-4: Cuentas Edición
+### 002-5: Filtros y búsqueda en transacciones
 
-**Estimación**: 45-60 minutos  
-**Objetivo**: Implementar edición de cuentas usando los patrones establecidos en categorías
+**Estimación**: 30 minutos  
+**Objetivo**: Implementar filtros avanzados usando los patrones ya establecidos
 
 #### 📋 Plan:
 
-1. Aplicar patrones de categorías a cuentas
-2. AccountFormDialog reutilizable
-3. useOptimistic para create/update
-4. Server actions limpios
-5. **Usar tipos centralizados** de account-types.ts
+1. Aplicar patrones establecidos de accounts/categories
+2. Usar tipos centralizados y English-first
+3. Server actions limpios con ServiceBaseResponse
+4. UI responsive con useTransition + Toast
 
 ## 📊 Progreso por Tareas
 
 ```
 Task 001: Setup Inicial         [████████████████████] 5/5 subtasks ✅✅✅✅✅
-Task 002: Cuentas/Transacciones [████████████░░░░░░░░] 4/6 subtasks
+Task 002: Cuentas/Transacciones [████████████████░░░░] 5/6 subtasks
   - 002-1: Modelo cuentas       [██████████] ✅ COMPLETADO
   - 002-2: CRUD transacciones   [██████████] ✅ COMPLETADO
   - 002-3: Sistema categorías   [██████████] ✅ COMPLETADO
   - 002-X: Tipos centralizados  [██████████] ✅ COMPLETADO (NUEVO)
-  - 002-4: Cuentas edición      [░░░░░░░░░░] ← SIGUIENTE
-  - 002-5: Filtros              [░░░░░░░░░░]
+  - 002-4: Cuentas edición      [██████████] ✅ COMPLETADO (YA EXISTÍA)
+  - 002-5: Filtros              [░░░░░░░░░░] ← SIGUIENTE
 Task 003: Dashboard KPIs        [░░░░░░░░░░] 0/5 subtasks
 Task 004: Alertas               [░░░░░░░░░░] 0/4 subtasks
 Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 ```
 
-## 🚨 Estado Actual - Listo para Cuentas
+## 🚨 Estado Actual - Excelente Progreso
 
 **Funcionalidades implementadas y funcionando:**
 • ✅ Setup completo con autenticación robusta
@@ -182,9 +240,10 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 • ✅ **Tipos centralizados** (account types, currency types) ✅
 • ✅ **English-first development** establecido ✅
 • ✅ **Colores e iconos centralizados** para account types ✅
+• ✅ **Account system COMPLETO** (create, edit, delete) ✅
 • ✅ Arquitectura escalable domain-based
 
-**🎯 Siguiente paso crítico**: Aplicar patrones de categorías a cuentas (002-4)
+**🎯 Siguiente paso crítico**: Implementar filtros de transacciones (002-5)
 
 ## 📚 Notas de Implementación
 
@@ -204,6 +263,13 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 - Iconos de Lucide React consistentes
 - Funciones utilitarias: `getAccountTypeColors()`, `getAccountTypeIcon()`
 - Badge styling centralizado
+
+### **🏗️ FormDialog Pattern (Perfeccionado)**
+
+- Modal reutilizable que maneja create Y edit
+- useOptimistic para UX instantánea
+- Validaciones integradas con Zod
+- Toast feedback automático
 
 **✅ Correcciones y mejoras realizadas:**
 
@@ -234,9 +300,10 @@ Task 005: Reportes              [░░░░░░░░░░] 0/4 subtasks
 6. **🆕 Centralized types** → Una sola fuente de verdad para tipos, colores, iconos
 7. **🆕 English-first development** → UI profesional y mantenible
 8. **🆕 Visual consistency** → Colores e iconos desde funciones utilitarias
+9. **🆕 Smart validation** → Balance checks, soft/hard delete según contexto
 
 **🎯 Para Cursor**:
 
-1. **Próximo paso** → Implementar 002-4 (Cuentas Edición) usando patrones establecidos
-2. **Arquitectura** → Sólida con tipos centralizados y English-first
-3. **Estado** → Excelente, listo para escalar features financieras
+1. **Próximo paso** → Implementar 002-5 (Filtros de transacciones) usando patrones establecidos
+2. **Arquitectura** → Sólida, madura, con account system completo
+3. **Estado** → Excelente, Task 002 casi terminada, listo para filtros avanzados

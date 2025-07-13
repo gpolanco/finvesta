@@ -1,6 +1,11 @@
 "use client";
 
-import { Category } from "@/features/categories/types";
+import {
+  Category,
+  CategoryType,
+  getCategoryTypeLabel,
+  getCategoryTypeColors,
+} from "@/features/categories/types";
 import { Badge } from "@/features/shared/components/ui/badge";
 import { CategoryFormDialog } from "./category-form-dialog";
 import { DeleteCategoryDialog } from "./delete-category-dialog";
@@ -16,17 +21,7 @@ interface CategoryListProps {
   categories: Category[];
 }
 
-const categoryTypeLabels = {
-  income: "Income",
-  expense: "Expense",
-  investment: "Investment",
-} as const;
-
-const categoryTypeColors = {
-  income: "bg-green-100 text-green-800",
-  expense: "bg-red-100 text-red-800",
-  investment: "bg-blue-100 text-blue-800",
-} as const;
+// Using centralized category type utilities
 
 export function CategoryList({ categories }: CategoryListProps) {
   // Group categories by type
@@ -46,12 +41,10 @@ export function CategoryList({ categories }: CategoryListProps) {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Tag className="h-5 w-5" />
-              {categoryTypeLabels[type as keyof typeof categoryTypeLabels]}
+              {getCategoryTypeLabel(type as CategoryType)}
               <Badge
                 variant="outline"
-                className={
-                  categoryTypeColors[type as keyof typeof categoryTypeColors]
-                }
+                className={getCategoryTypeColors(type as CategoryType)}
               >
                 {typeCategories.length}
               </Badge>

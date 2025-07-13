@@ -41,6 +41,10 @@ import { updateTransaction } from "@/features/transactions/actions/update-transa
 import type { Transaction } from "@/features/transactions/types";
 import type { Account } from "@/features/accounts/types";
 import type { Category } from "@/features/categories/types";
+import {
+  TRANSACTION_TYPE_OPTIONS,
+  type TransactionType,
+} from "@/features/shared/types/transaction-types";
 
 // Helper function to format dates using Intl
 const formatDate = (
@@ -53,7 +57,7 @@ const formatDate = (
     return dateObj.toISOString().split("T")[0]; // YYYY-MM-DD
   }
 
-  return new Intl.DateTimeFormat("es-ES", {
+  return new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
     month: "2-digit",
     year: "numeric",
@@ -78,9 +82,9 @@ export function TransactionForm({
   onCancel,
 }: TransactionFormProps) {
   const [isPending, startTransition] = useTransition();
-  const [selectedType, setSelectedType] = useState<
-    "income" | "expense" | "investment"
-  >(transaction?.transactionType || "expense");
+  const [selectedType, setSelectedType] = useState<TransactionType>(
+    (transaction?.transactionType as TransactionType) || "expense"
+  );
 
   const form = useForm<CreateTransactionFormData>({
     resolver: zodResolver(createTransactionSchema),
@@ -95,6 +99,7 @@ export function TransactionForm({
     },
   });
 
+  // Filter categories based on transaction type
   const filteredCategories = categories.filter(
     (cat) => cat.type === selectedType
   );
@@ -102,12 +107,23 @@ export function TransactionForm({
   const onSubmit = (data: CreateTransactionFormData) => {
     startTransition(async () => {
       try {
+        let response;
         if (transaction) {
-          await updateTransaction(transaction.id, data);
-          toast.success("Transaction updated successfully");
+          response = await updateTransaction(transaction.id, data);
+          if (response.success) {
+            toast.success("Transaction updated successfully");
+          } else {
+            toast.error(response.error || "Error updating transaction");
+            return;
+          }
         } else {
-          await createTransaction(data);
-          toast.success("Transaction created successfully");
+          response = await createTransaction(data);
+          if (response.success) {
+            toast.success("Transaction created successfully");
+          } else {
+            toast.error(response.error || "Error creating transaction");
+            return;
+          }
         }
         onSuccess?.();
       } catch (error) {
@@ -165,10 +181,9 @@ export function TransactionForm({
                 <Select
                   onValueChange={(value) => {
                     field.onChange(value);
-                    setSelectedType(
-                      value as "income" | "expense" | "investment"
-                    );
-                    form.setValue("categoryId", ""); // Reset category when type changes
+                    setSelectedType(value as TransactionType);
+                    // Reset category when type changes
+                    form.setValue("categoryId", "");
                   }}
                   defaultValue={field.value}
                 >
@@ -178,9 +193,11 @@ export function TransactionForm({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    <SelectItem value="income">Income</SelectItem>
-                    <SelectItem value="expense">Expense</SelectItem>
-                    <SelectItem value="investment">Investment</SelectItem>
+                    {TRANSACTION_TYPE_OPTIONS.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FormMessage />

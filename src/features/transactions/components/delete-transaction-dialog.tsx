@@ -34,17 +34,14 @@ export function DeleteTransactionDialog({
 
   const handleDelete = () => {
     startTransition(async () => {
-      try {
-        await deleteTransaction(transaction.id);
-        toast.success("Transacción eliminada correctamente");
+      const response = await deleteTransaction(transaction.id);
+
+      if (response.success) {
+        toast.success("Transaction deleted successfully");
         setOpen(false);
         onSuccess?.();
-      } catch (error) {
-        toast.error(
-          error instanceof Error
-            ? error.message
-            : "Error al eliminar la transacción"
-        );
+      } else {
+        toast.error(response.error || "Error deleting transaction");
       }
     });
   };
@@ -53,43 +50,52 @@ export function DeleteTransactionDialog({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || (
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
             <Trash2 className="h-4 w-4" />
           </Button>
         )}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Eliminar Transacción</DialogTitle>
+          <DialogTitle>Delete Transaction</DialogTitle>
           <DialogDescription>
-            ¿Estás seguro de que quieres eliminar esta transacción?
+            Are you sure you want to delete this transaction? This action cannot
+            be undone.
           </DialogDescription>
         </DialogHeader>
 
         <div className="py-4">
           <div className="bg-muted/50 rounded-lg p-4">
             <div className="flex items-center gap-3">
-              <div
-                className="w-3 h-3 rounded-full"
-                style={{ backgroundColor: transaction.category.color }}
-              />
-              <div className="flex-1">
-                <p className="font-medium">{transaction.description}</p>
-                <p className="text-sm text-muted-foreground">
-                  {transaction.category.name} • €{transaction.amount.toFixed(2)}
+              {transaction.category && (
+                <div
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: transaction.category.color }}
+                />
+              )}
+              <div className="flex-1 min-w-0">
+                <p className="font-medium truncate">
+                  {transaction.description}
+                </p>
+                <p className="text-sm text-muted-foreground truncate">
+                  {transaction.category
+                    ? `${
+                        transaction.category.name
+                      } • €${transaction.amount.toFixed(2)}`
+                    : `€${transaction.amount.toFixed(2)}`}
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
             disabled={isPending}
           >
-            Cancelar
+            Cancel
           </Button>
           <Button
             variant="destructive"
@@ -97,7 +103,7 @@ export function DeleteTransactionDialog({
             disabled={isPending}
           >
             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Eliminar
+            Delete
           </Button>
         </DialogFooter>
       </DialogContent>

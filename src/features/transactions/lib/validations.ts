@@ -1,22 +1,21 @@
 import { z } from "zod";
+import { transactionTypeSchema } from "@/features/shared/types/transaction-types";
 
-export const createTransactionSchema = z.object({
-  accountId: z.string().uuid("Selecciona una cuenta válida"),
-  categoryId: z.string().uuid("Selecciona una categoría válida"),
+const baseTransactionSchema = z.object({
+  accountId: z.string().uuid("Select a valid account"),
+  categoryId: z.string().uuid("Select a valid category"),
   amount: z
     .number()
-    .positive("El importe debe ser mayor que 0")
-    .max(1000000, "El importe no puede exceder €1,000,000"),
+    .positive("The amount must be greater than 0")
+    .max(1000000, "The amount cannot exceed €1,000,000"),
   description: z
     .string()
-    .min(1, "La descripción es obligatoria")
-    .max(200, "La descripción no puede exceder 200 caracteres"),
-  transactionType: z.enum(["income", "expense", "investment"], {
-    required_error: "Selecciona un tipo de transacción",
-  }),
+    .min(1, "The description is required")
+    .max(200, "The description cannot exceed 200 characters"),
+  transactionType: transactionTypeSchema,
   transactionDate: z
     .string()
-    .min(1, "La fecha es obligatoria")
+    .min(1, "The date is required")
     .refine((date) => {
       const parsedDate = new Date(date);
       const now = new Date();
@@ -26,10 +25,12 @@ export const createTransactionSchema = z.object({
         now.getDate()
       );
       return parsedDate <= now && parsedDate >= oneYearAgo;
-    }, "La fecha debe estar entre hace un año y hoy"),
+    }, "The date must be between one year ago and today"),
 });
 
-export const updateTransactionSchema = createTransactionSchema.partial();
+export const createTransactionSchema = baseTransactionSchema;
+
+export const updateTransactionSchema = baseTransactionSchema.partial();
 
 export type CreateTransactionFormData = z.infer<typeof createTransactionSchema>;
 export type UpdateTransactionFormData = z.infer<typeof updateTransactionSchema>;

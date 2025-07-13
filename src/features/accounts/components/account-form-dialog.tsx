@@ -19,8 +19,6 @@ interface AccountFormDialogProps {
   showText?: boolean;
   icon?: React.ReactNode;
   buttonVariant?: "default" | "outline" | "ghost" | "link";
-  onOptimisticAdd?: (account: Account) => void;
-  onOptimisticUpdate?: (account: Account) => void;
 }
 
 export const AccountFormDialog = ({
@@ -28,8 +26,6 @@ export const AccountFormDialog = ({
   showText = true,
   icon,
   buttonVariant = "default",
-  onOptimisticAdd,
-  onOptimisticUpdate,
 }: AccountFormDialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -40,24 +36,13 @@ export const AccountFormDialog = ({
     return new Promise<ServiceBaseResponse<Account>>((resolve) => {
       startTransition(async () => {
         if (isEditing && account) {
-          // Si hay callback optimistic, usarlo
-          if (onOptimisticUpdate) {
-            const optimisticAccount = { ...account, ...data };
-            onOptimisticUpdate(optimisticAccount);
-          }
-
           const response = await updateAccountAction({
             id: account.id,
             ...data,
           });
 
           if (response.success) {
-            // Si hay optimistic update, retrasar el cierre
-            if (onOptimisticUpdate) {
-              setTimeout(() => setIsOpen(false), 100);
-            } else {
-              setIsOpen(false);
-            }
+            setIsOpen(false);
           }
 
           resolve(response);
@@ -65,13 +50,7 @@ export const AccountFormDialog = ({
           const response = await createAccountAction(data);
 
           if (response.success) {
-            // Si hay callback optimistic y datos, usarlo
-            if (onOptimisticAdd && response.data) {
-              onOptimisticAdd(response.data);
-              setTimeout(() => setIsOpen(false), 100);
-            } else {
-              setIsOpen(false);
-            }
+            setIsOpen(false);
           }
 
           resolve(response);

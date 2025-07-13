@@ -13,20 +13,21 @@ Implementar la gestión completa de cuentas financieras y transacciones del usua
 - **002-1**: Modelo de cuentas financieras (45 min) ✅
 - **002-2**: CRUD de transacciones (60 min) ✅
 - **002-3**: **Sistema de categorías (45 min)** ✅ **COMPLETADO**
+- **002-4**: **Edición y baja de cuentas (30 min)** ✅ **COMPLETADO** (ya estaba implementado)
 - **002-X**: **Centralización de tipos (60 min)** ✅ **COMPLETADO ADICIONAL**
 - **Refactor**: Integración con patrones establecidos ✅
 
 ### 🔄 Próximo
 
-- **002-4**: Edición y baja de cuentas (30 min) ← **SIGUIENTE**
+- **002-5**: Filtros y búsqueda (30 min) ← **SIGUIENTE**
 
 ### 📋 Pendiente
 
-- **002-5**: Filtros y búsqueda (30 min)
 - **002-6**: Validaciones y feedback (30 min)
 
 ### 🎯 Logros Adicionales ✅
 
+- **✅ Account System COMPLETO**: Create, edit, delete con validaciones completas
 - **✅ Centralización de tipos**: Account types y currency types centralizados
 - **✅ English-first development**: Toda la UI traducida a inglés
 - **✅ Visual consistency**: Colores e iconos centralizados
@@ -141,9 +142,9 @@ CASH:       gray   (CreditCard icon)
 
 ---
 
-### 002-4: Edición y baja de cuentas
+### 🆕 002-4: Edición y baja de cuentas ✅
 
-**⏱️ 30 min**
+**⏱️ 30 min** - **DESCUBIERTO: YA ESTABA IMPLEMENTADO**
 
 - Permitir editar nombre, tipo y proveedor de cuentas
 - Permitir desactivar/borrar cuentas (soft delete)
@@ -154,12 +155,16 @@ CASH:       gray   (CreditCard icon)
 
 #### ✅ Criterios de éxito:
 
-- [ ] Edición de cuentas funcional
-- [ ] Baja/desactivación de cuentas
-- [ ] No se puede borrar cuenta con saldo >0
-- [ ] Feedback inmediato
-- [ ] Usar funciones centralizadas para colores e iconos
-- [ ] Pruebas unitarias mínimas
+- [x] Edición de cuentas funcional
+- [x] Baja/desactivación de cuentas
+- [x] No se puede borrar cuenta con saldo >0
+- [x] Feedback inmediato
+- [x] Usar funciones centralizadas para colores e iconos
+- [x] **BONUS**: AccountForm soporta create Y edit
+- [x] **BONUS**: AccountFormDialog reutilizable con useOptimistic
+- [x] **BONUS**: DeleteAccountDialog con validación completa
+- [x] **BONUS**: Smart soft/hard delete según contexto
+- [x] Pruebas unitarias mínimas
 
 ---
 
@@ -224,11 +229,14 @@ CASH:       gray   (CreditCard icon)
 
 9. **⚖️ Client/Server balance** (páginas server, listas client cuando necesario)
 
+10. **🛡️ Smart validations** (Balance checks, soft/hard delete según contexto)
+
 ---
 
 ## ✅ Criterios de Éxito Globales
 
 - [x] Gestión completa de cuentas y transacciones
+- [x] **Account system completo** (create, edit, delete) ✅
 - [x] **Tipos centralizados y English-first development** ✅
 - [x] **Visual consistency con colores e iconos centralizados** ✅
 - [x] UI responsive y accesible
@@ -250,15 +258,13 @@ CASH:       gray   (CreditCard icon)
 
 ```bash
 git add .
-git commit -m "feat(accounts): implementa Task 002 - cuentas y transacciones
+git commit -m "feat(accounts): Task 002 casi completa - account system terminado
 
-- Modelo de cuentas financieras y CRUD de transacciones
-- Sistema de categorías y centralización de tipos
-- Account types y currency types centralizados
-- English-first development establecido
-- Colores e iconos centralizados con funciones utilitarias
-- UI responsive y feedback inmediato
-- Pruebas unitarias para cada subtask
+- Account system completo: create, edit, delete
+- Centralización de tipos y English-first development
+- Validaciones de negocio implementadas (balance, soft/hard delete)
+- Todos los patrones arquitectónicos aplicados
+- UI responsive y consistente
 
 Refs: tasks/002-accounts/README.md
 Don't forget to commit!"

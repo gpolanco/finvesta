@@ -11,32 +11,27 @@ import { EmptyContent } from "@/features/shared/components/empty-content";
 export default async function AccountsPage() {
   const accounts = await getAccounts();
 
-  if (accounts.length === 0) {
-    return (
-      <PageWrapper
-        title={appRoutes.accounts.list.title}
-        description={appRoutes.accounts.list.description}
-        actions={<AccountFormDialog />}
-      >
-        <EmptyContent
-          title="You don't have any accounts registered"
-          description="Add your first account to start managing your finances and tracking your portfolio"
-          icon={PiggyBank}
-        >
-          <AccountFormDialog />
-        </EmptyContent>
-      </PageWrapper>
-    );
-  }
+  const accountDialog = <AccountFormDialog />;
+  const hasAccounts = accounts.length > 0;
 
   return (
     <PageWrapper
       title={appRoutes.accounts.list.title}
       description={appRoutes.accounts.list.description}
-      actions={<AccountFormDialog />}
+      actions={hasAccounts ? accountDialog : undefined}
     >
       <Suspense fallback={<AccountListSkeleton />}>
-        <AccountList accounts={accounts} />
+        {hasAccounts ? (
+          <AccountList accounts={accounts} />
+        ) : (
+          <EmptyContent
+            title="You don't have any accounts registered"
+            description="Add your first account to start managing your finances and tracking your portfolio"
+            icon={PiggyBank}
+          >
+            {accountDialog}
+          </EmptyContent>
+        )}
       </Suspense>
     </PageWrapper>
   );

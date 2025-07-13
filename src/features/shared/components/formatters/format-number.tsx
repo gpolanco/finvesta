@@ -3,6 +3,7 @@ import {
   getCurrencySymbol,
   type Currency,
 } from "@/features/shared/types/currency-types";
+import { cn } from "@/features/shared/lib/utils";
 
 interface FormatNumberProps {
   value: number | string;
@@ -13,6 +14,7 @@ interface FormatNumberProps {
   prefix?: string;
   suffix?: string;
   showCurrency?: boolean;
+  className?: string;
 }
 
 export function FormatNumber({
@@ -24,7 +26,8 @@ export function FormatNumber({
   prefix,
   suffix,
   showCurrency = false,
-}: FormatNumberProps): string {
+  className,
+}: FormatNumberProps): React.ReactNode {
   const numberValue = typeof value === "string" ? parseFloat(value) : value;
 
   const formatOptions: Intl.NumberFormatOptions = {
@@ -37,7 +40,19 @@ export function FormatNumber({
     numberValue
   );
 
-  return `${prefix}${formattedNumber}${suffix}${
-    showCurrency ? getCurrencySymbol(currency) : ""
-  }`;
+  // Only add currency symbol manually if showCurrency is true AND style is not "currency"
+  // (because "currency" style already includes the currency symbol)
+  const shouldAddCurrencySymbol = showCurrency && style !== "currency";
+
+  return (
+    <span
+      className={cn(className, {
+        "font-semibold": style === "currency",
+      })}
+    >
+      {`${prefix || ""}${formattedNumber}${suffix || ""}${
+        shouldAddCurrencySymbol ? getCurrencySymbol(currency) : ""
+      }`}
+    </span>
+  );
 }

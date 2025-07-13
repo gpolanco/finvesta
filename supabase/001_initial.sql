@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS public.categories (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES public.profiles(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
-  type TEXT NOT NULL CHECK (type IN ('income','expense','investment')),
+  type TEXT NOT NULL CHECK (type IN ('income','expense','investment','transfer')),
   parent_id UUID REFERENCES public.categories(id),
   color TEXT DEFAULT '#6b7280',
   is_default BOOLEAN DEFAULT false,

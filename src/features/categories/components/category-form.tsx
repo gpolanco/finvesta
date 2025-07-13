@@ -27,7 +27,7 @@ import {
   UpdateCategoryFormData,
   type CreateCategoryFormData,
 } from "@/features/categories/lib/validations";
-import { Category } from "@/features/categories/types";
+import { Category, CATEGORY_TYPE_OPTIONS } from "@/features/categories/types";
 import { ServiceBaseResponse } from "@/features/shared/services/types/service-base";
 import { toast } from "sonner";
 
@@ -40,11 +40,7 @@ interface CategoryFormProps {
   isLoading?: boolean;
 }
 
-const categoryTypes = [
-  { value: "income", label: "Ingreso" },
-  { value: "expense", label: "Gasto" },
-  { value: "investment", label: "Inversión" },
-] as const;
+// Using centralized category type options
 
 const defaultColors = [
   "#ef4444",
@@ -141,7 +137,7 @@ export function CategoryForm({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {categoryTypes.map((type) => (
+                  {CATEGORY_TYPE_OPTIONS.map((type) => (
                     <SelectItem key={type.value} value={type.value}>
                       {type.label}
                     </SelectItem>

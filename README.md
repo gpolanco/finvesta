@@ -4,22 +4,34 @@ A modern personal finance management application built with Next.js 15, React 19
 
 ## 🎯 Project Status
 
-**Current Phase**: Task 002 - Accounts & Transactions ✅ **ADVANCED**  
-**Progress**: 70% - Ready for account editing implementation
+**Current Phase**: Task 002 - Accounts & Transactions ✅ **NEAR COMPLETE**  
+**Progress**: 85% - Ready for transaction filters implementation
 
 ### ✅ Completed
 
 - Authentication & Database setup
-- Categories system with full CRUD
-- Account management (view/create)
+- Categories system with full CRUD **+ Transfer Categories** 🆕
+- Account management (complete CRUD including editing)
 - **Centralized types system** (account types, currencies, colors, icons)
-- English-first UI with consistent patterns
+- **Consistent architecture**: All transaction types require categories
+- English-first UI with established patterns
 
 ### 🔄 Next Steps
 
-- Account editing functionality
 - Transaction filters & search
 - Dashboard KPIs
+- Financial alerts
+
+### 🆕 **Recent Achievement**: Transfer Categories Implementation
+
+**Problem solved**: Transfers now have proper categories, eliminating conditional logic and creating a consistent, scalable system.
+
+**Benefits**:
+
+- ✅ **System consistency**: All transaction types work uniformly
+- ✅ **Simplified codebase**: No special cases or conditional logic
+- ✅ **Better UX**: Users can categorize transfers meaningfully
+- ✅ **Scalability**: Future transaction types automatically work
 
 ## 🏗️ Tech Stack
 
@@ -61,7 +73,13 @@ src/features/
 - Toast notifications for feedback
 - Confirmation modals for destructive actions
 
-#### **3. Visual Consistency**
+#### **3. System Consistency** 🆕
+
+- All transaction types require categories (no special cases)
+- Prefer consistent architecture over conditional logic
+- Transfer categories: Account Transfer, Investment Rebalancing, Loan Payment, Savings Allocation
+
+#### **4. Visual Consistency**
 
 ```typescript
 // Centralized styling
@@ -113,10 +131,10 @@ pnpm lint         # Code linting
 ### ✅ Implemented
 
 - **Authentication**: Email/password with Supabase Auth
-- **Accounts**: Bank, crypto, investment, savings, cash accounts
-- **Categories**: Custom categories with colors and types
-- **Transactions**: Full CRUD with category assignment
-- **UI**: Responsive, accessible, mobile-first design
+- **Accounts**: Bank, crypto, investment, savings, cash accounts (complete CRUD)
+- **Categories**: Custom categories with colors and types (income, expense, investment, **transfer** 🆕)
+- **Transactions**: Full CRUD with consistent category assignment for all types
+- **UI**: Responsive, accessible, mobile-first design with established patterns
 
 ### ⏳ Planned
 

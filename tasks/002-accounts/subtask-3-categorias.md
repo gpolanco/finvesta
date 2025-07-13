@@ -1,7 +1,21 @@
 # 002-3: Sistema de categorías
 
 **⏱️ Estimación**: 45 minutos  
-**🎯 Objetivo**: Permitir visualizar, crear, editar y eliminar categorías de ingresos, gastos e inversión, con UI accesible y mobile-first.
+**🎯 Objetivo**: Permitir visualizar, crear, editar y eliminar categorías de ingresos, gastos, inversión y transferencias, con UI accesible y mobile-first.
+
+## 🆕 **TRANSFER CATEGORIES IMPLEMENTATION** - 2024-12-19
+
+**Problema identificado**: Los transfers no tenían categorías disponibles, creando inconsistencias en el sistema y lógica condicional compleja.
+
+**Solución arquitectónica implementada**:
+
+- ✅ **Categorías para transfers**: Agregado `TRANSFER: "transfer"` al sistema de tipos
+- ✅ **Categorías seed**: Account Transfer, Investment Rebalancing, Loan Payment, Savings Allocation
+- ✅ **Sistema consistente**: TODOS los transaction types ahora requieren categorías
+- ✅ **Código simplificado**: Eliminada lógica condicional compleja
+- ✅ **DB actualizada**: Constraint permite `'transfer'` en categories.type
+
+**Resultado**: Sistema más limpio, predecible y escalable para futuros transaction types.
 
 ## 📋 Pasos Específicos
 
@@ -19,10 +33,11 @@
 - [x] Permitir borrar solo categorías personalizadas (no las por defecto)
 - [x] Confirmación antes de borrar
 
-### 3. Integrar con transacciones (5 min) ⏸️
+### 3. Integrar con transacciones (5 min) ✅
 
-- [ ] Usar categorías en TransactionForm
-- [ ] Validar que siempre haya al menos una categoría por tipo
+- [x] Usar categorías en TransactionForm
+- [x] Validar que siempre haya al menos una categoría por tipo
+- [x] **🆕 TRANSFER SUPPORT**: Categorías para todos los transaction types incluyendo transfers
 
 ### 4. Pruebas unitarias mínimas (10 min) ⏸️
 
@@ -75,6 +90,13 @@
 - ✅ **Optimistic updates** solo para create/update
 - ✅ **Server-first** para delete (confirmación clara)
 - ✅ **State synchronization** automática
+
+### **🆕 System Consistency & Architecture**
+
+- ✅ **Unified category system**: Todos los transaction types requieren categorías
+- ✅ **No conditional logic**: Arquitectura consistente vs lógica condicional compleja
+- ✅ **Scalable design**: Nuevos transaction types automáticamente funcionan
+- ✅ **Transfer categories**: Account Transfer, Investment Rebalancing, Loan Payment, Savings Allocation
 
 ## 🧪 Testing
 

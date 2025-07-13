@@ -1,6 +1,5 @@
 "use client";
 
-import { useOptimistic } from "react";
 import { Account } from "@/features/accounts/types";
 import {
   Card,
@@ -21,53 +20,10 @@ import { DeleteAccountDialog } from "./delete-account-dialog";
 interface AccountListProps {
   accounts: Account[];
 }
-
-type OptimisticAction =
-  | { type: "add"; account: Account }
-  | { type: "update"; account: Account };
-
-function optimisticReducer(
-  accounts: Account[],
-  action: OptimisticAction
-): Account[] {
-  switch (action.type) {
-    case "add":
-      return [...accounts, action.account];
-    case "update":
-      return accounts.map((acc) =>
-        acc.id === action.account.id ? action.account : acc
-      );
-    default:
-      return accounts;
-  }
-}
-
 export function AccountList({ accounts }: AccountListProps) {
-  const [optimisticAccounts, addOptimistic] = useOptimistic(
-    accounts,
-    optimisticReducer
-  );
-
-  const handleOptimisticUpdate = (account: Account) => {
-    addOptimistic({ type: "update", account });
-  };
-
-  if (accounts.length === 0) {
-    return (
-      <div className="text-center py-12">
-        <div className="text-gray-500 mb-4">No accounts found</div>
-        <AccountFormDialog
-          onOptimisticUpdate={(account) =>
-            addOptimistic({ type: "add", account })
-          }
-        />
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-4">
-      {optimisticAccounts.map((account) => {
+      {accounts.map((account) => {
         const IconComponent = getAccountTypeIcon(account.type);
         const iconColorClass = getAccountTypeIconColor(account.type);
         const badgeColorClass = getAccountTypeBadgeColor(account.type);
@@ -92,10 +48,7 @@ export function AccountList({ accounts }: AccountListProps) {
                 </div>
               </div>
               <div className="flex items-center space-x-2">
-                <AccountFormDialog
-                  account={account}
-                  onOptimisticUpdate={handleOptimisticUpdate}
-                />
+                <AccountFormDialog account={account} showText={false} />
                 <DeleteAccountDialog account={account} />
               </div>
             </CardHeader>

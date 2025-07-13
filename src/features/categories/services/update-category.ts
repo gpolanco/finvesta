@@ -1,5 +1,5 @@
 import { CategoryMapper } from "@/features/categories/category-mapper";
-import { Category, CategoryTypeValues } from "@/features/categories/types";
+import { Category, CategoryType } from "@/features/categories/types";
 import {
   ServiceBaseParams,
   ServiceBaseResponse,
@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 export interface UpdateCategoryParams extends ServiceBaseParams {
   id: string;
   name?: string;
-  type?: CategoryTypeValues;
+  type?: CategoryType;
   color?: string;
   isDefault?: boolean;
   description?: string;

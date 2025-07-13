@@ -5,6 +5,8 @@
  */
 
 import type { AccountType } from "@/features/shared/types/account-types";
+import type { TransactionType } from "@/features/shared/types/transaction-types";
+import type { CategoryType } from "@/features/categories/types";
 
 interface Profile {
   id: string;
@@ -37,14 +39,12 @@ interface Account extends DbBase {
 
 interface Category extends DbBase {
   name: string;
-  type: "income" | "expense" | "investment";
+  type: CategoryType;
   parent_id?: string | null;
   color: string; // HEX string
   is_default: boolean;
   description?: string;
 }
-
-type TransactionType = "income" | "expense" | "transfer" | "investment";
 
 interface Transaction extends DbBase {
   account_id: string;
