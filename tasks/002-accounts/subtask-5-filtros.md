@@ -28,11 +28,11 @@
 
 ## ✅ Criterios de Éxito
 
-- [ ] Filtros funcionales por cuenta, tipo, categoría y fecha
-- [ ] Búsqueda por descripción
-- [ ] UI rápida y sin recargas
-- [ ] TypeScript sin warnings
-- [ ] Sin errores en consola
+- [x] Filtros funcionales por cuenta, tipo, categoría y fecha
+- [x] Búsqueda por descripción
+- [x] UI rápida y sin recargas
+- [x] TypeScript sin warnings
+- [x] Sin errores en consola
 - [ ] Pruebas unitarias mínimas
 
 ## 🧪 Testing

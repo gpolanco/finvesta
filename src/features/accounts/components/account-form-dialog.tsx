@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Pencil, Plus } from "lucide-react";
+import { toast } from "sonner";
 
 import { AccountForm } from "@/features/accounts/components/account-form";
 import { Account } from "@/features/accounts/types";
@@ -11,7 +12,10 @@ import {
   createAccountAction,
   updateAccountAction,
 } from "@/features/accounts/actions";
-import { CreateAccountFormData } from "@/features/accounts/lib/validations";
+import {
+  CreateAccountFormData,
+  UpdateAccountFormData,
+} from "@/features/accounts/lib/validations";
 import { ServiceBaseResponse } from "@/features/shared/services/types/service-base";
 
 interface AccountFormDialogProps {
@@ -25,24 +29,30 @@ export const AccountFormDialog = ({
   account,
   showText = true,
   icon,
-  buttonVariant = "default",
+  buttonVariant = "ghost",
 }: AccountFormDialogProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   const isEditing = !!account;
 
-  const handleSubmit = async (data: CreateAccountFormData) => {
+  const handleSubmit = async (
+    data: CreateAccountFormData | UpdateAccountFormData
+  ) => {
     return new Promise<ServiceBaseResponse<Account>>((resolve) => {
       startTransition(async () => {
         if (isEditing && account) {
-          const response = await updateAccountAction({
-            id: account.id,
-            ...data,
-          });
+          const updateData: UpdateAccountFormData =
+            "id" in data
+              ? (data as UpdateAccountFormData)
+              : { id: account.id, ...data };
+          const response = await updateAccountAction(updateData);
 
           if (response.success) {
+            toast.success("Account updated successfully");
             setIsOpen(false);
+          } else {
+            toast.error(response.error || "Failed to update account");
           }
 
           resolve(response);
@@ -50,7 +60,10 @@ export const AccountFormDialog = ({
           const response = await createAccountAction(data);
 
           if (response.success) {
+            toast.success("Account created successfully");
             setIsOpen(false);
+          } else {
+            toast.error(response.error || "Failed to create account");
           }
 
           resolve(response);
@@ -66,7 +79,7 @@ export const AccountFormDialog = ({
   return (
     <FormDialog
       open={isOpen}
-      onOpenChange={setIsOpen}
+      onOpenChange={!isPending ? setIsOpen : () => {}}
       title={account ? "Edit account" : "Add new account"}
       trigger={
         <Button variant={buttonVariant}>

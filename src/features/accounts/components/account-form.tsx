@@ -61,27 +61,36 @@ export function AccountForm({
 }: AccountFormProps) {
   const isEditing = !!account;
 
-  const form = useForm<CreateAccountFormData>({
+  const form = useForm<CreateAccountFormData | UpdateAccountFormData>({
     resolver: zodResolver(
       isEditing ? updateAccountSchema : createAccountSchema
     ),
-    defaultValues: {
-      name: account?.name || "",
-      type: account?.type || ("bank" as const),
-      provider: account?.provider || "",
-      balance: account?.balance || 0,
-      currency: safeCurrency(account?.currency),
-    },
+    defaultValues:
+      isEditing && account
+        ? {
+            id: account.id,
+            name: account.name,
+            type: account.type,
+            provider: account.provider || "",
+            balance: account.balance,
+            currency: safeCurrency(account.currency),
+          }
+        : {
+            name: "",
+            type: "bank" as const,
+            provider: "",
+            balance: 0,
+            currency: safeCurrency(undefined),
+          },
   });
 
-  const handleSubmit = async (data: CreateAccountFormData) => {
+  const handleSubmit = async (
+    data: CreateAccountFormData | UpdateAccountFormData
+  ) => {
     if (!onSubmit) return;
 
     try {
-      const response = await onSubmit(data);
-      if (response.success) {
-        form.reset();
-      }
+      await onSubmit(data);
     } catch (error) {
       console.error("Error submitting form:", error);
     }

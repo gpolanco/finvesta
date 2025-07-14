@@ -16,6 +16,8 @@ import {
 } from "@/features/shared/types/account-types";
 import { AccountFormDialog } from "./account-form-dialog";
 import { DeleteAccountDialog } from "./delete-account-dialog";
+import { FormatNumber } from "@/features/shared/components/formatters/format-number";
+import { Currency } from "@/features/shared/types";
 
 interface AccountListProps {
   accounts: Account[];
@@ -64,7 +66,11 @@ export function AccountList({ accounts }: AccountListProps) {
                 </div>
                 <div className="text-right">
                   <div className="text-2xl font-bold">
-                    ${account.balance.toLocaleString()}
+                    <FormatNumber
+                      value={account.balance}
+                      currency={account.currency as Currency}
+                      style="currency"
+                    />
                   </div>
                 </div>
               </div>
