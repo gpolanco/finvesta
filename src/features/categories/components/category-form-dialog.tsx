@@ -83,9 +83,7 @@ export const CategoryFormDialog = ({
             ) : (
               <Plus className="h-4 w-4" />
             ))}
-          {showText && (
-            <span className="ml-2">{isEditing ? "Edit" : "Add"} category</span>
-          )}
+          {showText && <span>{isEditing ? "Edit" : "Add"} category</span>}
         </Button>
       }
     >

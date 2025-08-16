@@ -65,11 +65,11 @@
 
 ### **Validaciones Implementadas**
 
-#### **Límites de Negocio**:
+#### **Límites de Negocio (Ejemplos Configurables)**:
 
-- **Crypto**: Máximo 15% del patrimonio total
-- **Liquidez**: Máximo €20,000 en cuentas bancarias y efectivo
-- **Ahorro**: Mínimo €1,500 mensual
+- **Crypto**: Máximo 15% del patrimonio total (ejemplo configurable)
+- **Liquidez**: Máximo €20,000 en cuentas bancarias y efectivo (ejemplo configurable)
+- **Ahorro**: Mínimo €1,500 mensual (ejemplo configurable)
 - **Saldo negativo**: Prevención con niveles de riesgo (low/medium/high)
 
 #### **Alertas Automáticas**:
@@ -306,11 +306,11 @@ Don't forget to commit!"
 - 1.500€/mes objetivo de ahorro
 - 3.730€/mes ingresos
 
-**✅ Límites implementados y funcionando:**
+**✅ Límites de ejemplo implementados y funcionando:**
 
-- Crypto: 15% máximo del patrimonio
-- Liquidez: €20,000 máximo
-- Ahorro: €1,500 mínimo mensual
+- Crypto: 15% máximo del patrimonio (ejemplo configurable)
+- Liquidez: €20,000 máximo (ejemplo configurable)
+- Ahorro: €1,500 mínimo mensual (ejemplo configurable)
 - Saldo negativo: Prevención automática
 
 **🚀 Límites configurables por usuario (futuro):**
@@ -319,3 +319,5 @@ Don't forget to commit!"
 - Presets de riesgo (conservative, moderate, aggressive)
 - Configuración individual por usuario
 - Alertas personalizadas avanzadas
+- **Universalidad**: Adaptable a cualquier perfil financiero
+- **Escalabilidad**: Preparado para múltiples usuarios y mercados

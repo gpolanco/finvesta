@@ -31,16 +31,17 @@ finvesta/
 └── [resto del proyecto Next.js]
 ```
 
-## 🎯 Contexto Financiero Específico
+## 🎯 Contexto Financiero de Ejemplo
 
-**IMPORTANTE**: Este sistema está diseñado para TU situación financiera específica:
+**IMPORTANTE**: Este sistema incluye ejemplos de configuración financiera para demostrar funcionalidades:
 
-- **Edad**: 45 años
-- **Ingresos**: 3.730€/mes
-- **Objetivo ahorro**: 1.500€/mes
-- **Situación actual**: 22.000€ sin rentabilidad + 10.000€ cripto
-- **Problema**: Cripto representa 19.2% (excede objetivo 15%)
-- **Meta 5 años**: 100.000€ patrimonio neto optimizado
+- **Ejemplo de ingresos**: 3.730€/mes
+- **Ejemplo de ahorro**: 1.500€/mes
+- **Ejemplo de situación**: 22.000€ liquidez + 10.000€ cripto
+- **Ejemplo de límite**: Cripto 15% máximo del patrimonio
+- **Ejemplo de meta**: 100.000€ patrimonio neto optimizado
+
+**Nota**: Estos valores son ejemplos para demostración. La aplicación es completamente configurable y se adapta a cualquier perfil financiero, desde usuarios básicos hasta portafolios complejos de inversión.
 
 ## 🔄 Flujo de Trabajo
 
@@ -57,7 +58,7 @@ finvesta/
 
    ```
    "Implementa subtask-X-nombre.md siguiendo exactamente los pasos.
-   Usa los números reales del usuario (22k€ liquidez, 10k€ cripto, 3.730€/mes ingreso, 1.500€/mes ahorro)."
+   Usa los ejemplos de configuración para demostrar funcionalidades (22k€ liquidez, 10k€ cripto, 3.730€/mes ingreso, 1.500€/mes ahorro)."
    ```
 
 3. **Al completar**:

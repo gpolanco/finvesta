@@ -10,7 +10,7 @@ Este archivo registra las mejoras y funcionalidades que se implementarán en fut
 
 ### **1. Límites Financieros Configurables por Usuario** 🔴 **ALTA PRIORIDAD**
 
-**Problema**: Los límites financieros están hardcodeados en el código, no son escalables para un sistema multi-usuario.
+**Problema**: Los límites financieros de ejemplo están hardcodeados en el código, no son escalables para un sistema multi-usuario donde cada persona tiene diferentes objetivos financieros y tolerancia al riesgo.
 
 **Solución**: Sistema de configuración personalizada por usuario con presets de riesgo.
 
@@ -74,6 +74,8 @@ const RISK_PRESETS = {
 - ✅ Escalabilidad multi-usuario
 - ✅ Flexibilidad en gestión de riesgo
 - ✅ Mantenibilidad mejorada
+- ✅ Universalidad para diferentes perfiles financieros
+- ✅ Adaptabilidad a diferentes mercados y regulaciones
 
 #### **Estimación**: 4-6 horas
 
@@ -312,4 +314,4 @@ CREATE TABLE custom_alerts (
 
 Estas mejoras transformarán Finvesta de una aplicación básica de gestión financiera a una plataforma completa y personalizable, preparada para múltiples usuarios con diferentes necesidades financieras.
 
-**Prioridad recomendada**: Comenzar con límites configurables por usuario, ya que es la base para todas las demás mejoras y resuelve el problema de escalabilidad identificado.
+**Prioridad recomendada**: Comenzar con límites configurables por usuario, ya que es la base para todas las demás mejoras y resuelve el problema de escalabilidad identificado. Esta mejora transformará Finvesta de una aplicación con ejemplos fijos a una plataforma verdaderamente universal y personalizable.

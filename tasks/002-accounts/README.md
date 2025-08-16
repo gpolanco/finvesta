@@ -245,12 +245,14 @@ CASH:       gray   (CreditCard icon)
 - [x] Sin errores en consola
 - [x] Pruebas unitarias para cada subtask
 
-## 💰 Contexto Financiero
+## 💰 Contexto Financiero de Ejemplo
 
-- 22.000€ liquidez sin rentabilidad
-- 10.000€ en criptomonedas (19.2% del patrimonio)
-- 1.500€/mes objetivo de ahorro
-- 3.730€/mes ingresos
+- 22.000€ liquidez sin rentabilidad (ejemplo configurable)
+- 10.000€ en criptomonedas (19.2% del patrimonio, ejemplo configurable)
+- 1.500€/mes objetivo de ahorro (ejemplo configurable)
+- 3.730€/mes ingresos (ejemplo configurable)
+
+**Nota**: Estos valores son ejemplos para demostrar funcionalidades. La aplicación es completamente configurable para cualquier perfil financiero.
 
 ---
 
@@ -291,9 +293,9 @@ Durante la implementación de Task 002, se identificaron varias mejoras importan
 
 ### **🔴 Alta Prioridad - Límites Configurables por Usuario**
 
-- **Problema**: Límites financieros hardcodeados no escalan para multi-usuario
+- **Problema**: Límites financieros de ejemplo hardcodeados no escalan para multi-usuario
 - **Solución**: Sistema de configuración personalizada con presets de riesgo
-- **Beneficio**: Personalización y escalabilidad multi-usuario
+- **Beneficio**: Personalización, escalabilidad multi-usuario y universalidad
 - **Estimación**: 4-6 horas
 
 ### **🟡 Media Prioridad**

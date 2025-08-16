@@ -13,23 +13,25 @@ export default async function CategoriesPage() {
       ? response.data.filter((category) => !category.isDefault)
       : [];
 
+  if (categories.length === 0) {
+    return (
+      <EmptyContent
+        title="Don't have any categories created"
+        description="Create categories to organize your income, expenses and investments better"
+        icon={Tag}
+      >
+        <CategoryFormDialog />
+      </EmptyContent>
+    );
+  }
+
   return (
     <PageWrapper
       title={categoriesRoutes.list.title}
       description={categoriesRoutes.list.description}
       actions={<CategoryFormDialog />}
     >
-      {categories && categories.length > 0 ? (
-        <CategoryList categories={categories} />
-      ) : (
-        <EmptyContent
-          title="Don't have any categories created"
-          description="Create categories to organize your income, expenses and investments better"
-          icon={Tag}
-        >
-          <CategoryFormDialog />
-        </EmptyContent>
-      )}
+      <CategoryList categories={categories} />
     </PageWrapper>
   );
 }
