@@ -1,5 +1,4 @@
 import { Category } from "@/core/domain/category/models/category";
-import { CategoryType } from "@/core/domain/category/value-objects/category-type";
 
 /**
  * Core business logic for Category operations within the category bounded context

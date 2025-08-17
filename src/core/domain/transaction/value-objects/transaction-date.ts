@@ -59,7 +59,10 @@ export class TransactionDate {
    * Create from current date
    */
   static now(): TransactionDate {
-    return new TransactionDate(new Date());
+    const now = new Date();
+    // Normalize to start of day in local timezone for consistency
+    const localNow = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    return new TransactionDate(localNow);
   }
 
   /**
@@ -67,18 +70,27 @@ export class TransactionDate {
    */
   static today(): TransactionDate {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return new TransactionDate(today);
+    // Set to start of day in local timezone
+    const localToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    return new TransactionDate(localToday);
   }
 
   /**
    * Create from yesterday's date
    */
   static yesterday(): TransactionDate {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    yesterday.setHours(0, 0, 0, 0);
-    return new TransactionDate(yesterday);
+    const today = new Date();
+    // Set to start of yesterday in local timezone
+    const localYesterday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 1
+    );
+    return new TransactionDate(localYesterday);
   }
 
   /**
@@ -194,16 +206,25 @@ export class TransactionDate {
    */
   isToday(): boolean {
     const today = new Date();
-    return this.toDateString() === today.toISOString().split("T")[0];
+    const localToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+    return this.value.getTime() === localToday.getTime();
   }
 
   /**
    * Check if date is yesterday
    */
   isYesterday(): boolean {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    return this.toDateString() === yesterday.toISOString().split("T")[0];
+    const today = new Date();
+    const localYesterday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate() - 1
+    );
+    return this.value.getTime() === localYesterday.getTime();
   }
 
   /**
