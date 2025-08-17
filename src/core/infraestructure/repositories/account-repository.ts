@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { Repository } from "./base/repository";
+import { UserRepository } from "./base/repository";
 import { Account } from "@/core/domain/accounts";
 import { AccountMapper } from "../mappers";
 import {
@@ -8,7 +8,7 @@ import {
   AccountNotFoundInDatabaseError,
 } from "./errors";
 
-export class AccountRepository implements Repository<Account> {
+export class AccountRepository implements UserRepository<Account> {
   private prisma: PrismaClient;
 
   constructor(prisma: PrismaClient) {
@@ -16,12 +16,15 @@ export class AccountRepository implements Repository<Account> {
   }
 
   async create(
-    data: Omit<Account, "id" | "createdAt" | "updatedAt">
+    data: Omit<Account, "id" | "createdAt" | "updatedAt"> & { userId: string }
   ): Promise<Account> {
     try {
       const prismaData = AccountMapper.toDatabase(data);
       const result = await this.prisma.account.create({
-        data: prismaData,
+        data: {
+          ...prismaData,
+          userId: data.userId,
+        },
       });
       return AccountMapper.toDomain(result);
     } catch (error) {
@@ -40,10 +43,14 @@ export class AccountRepository implements Repository<Account> {
     }
   }
 
-  async findById(id: string): Promise<Account | null> {
+  async findById(id: string, userId: string): Promise<Account | null> {
     try {
-      const result = await this.prisma.account.findUnique({
-        where: { id },
+      const result = await this.prisma.account.findFirst({
+        where: {
+          id,
+          userId,
+          isActive: true,
+        },
       });
       return result ? AccountMapper.toDomain(result) : null;
     } catch (error) {
@@ -54,10 +61,13 @@ export class AccountRepository implements Repository<Account> {
     }
   }
 
-  async findAll(): Promise<Account[]> {
+  async findAll(userId: string): Promise<Account[]> {
     try {
       const results = await this.prisma.account.findMany({
-        where: { isActive: true },
+        where: {
+          userId,
+          isActive: true,
+        },
       });
       return results.map(AccountMapper.toDomain);
     } catch (error) {
@@ -70,12 +80,16 @@ export class AccountRepository implements Repository<Account> {
 
   async update(
     id: string,
+    userId: string,
     data: Partial<Omit<Account, "id" | "createdAt" | "updatedAt">>
   ): Promise<Account> {
     try {
       const prismaData = AccountMapper.toDatabaseUpdate(data);
       const result = await this.prisma.account.update({
-        where: { id },
+        where: {
+          id,
+          userId,
+        },
         data: {
           ...prismaData,
           updatedAt: new Date(),
@@ -100,10 +114,13 @@ export class AccountRepository implements Repository<Account> {
     }
   }
 
-  async delete(id: string): Promise<void> {
+  async delete(id: string, userId: string): Promise<void> {
     try {
       await this.prisma.account.update({
-        where: { id },
+        where: {
+          id,
+          userId,
+        },
         data: { isActive: false },
       });
     } catch (error) {
@@ -117,10 +134,14 @@ export class AccountRepository implements Repository<Account> {
     }
   }
 
-  async exists(id: string): Promise<boolean> {
+  async exists(id: string, userId: string): Promise<boolean> {
     try {
-      const result = await this.prisma.account.findUnique({
-        where: { id },
+      const result = await this.prisma.account.findFirst({
+        where: {
+          id,
+          userId,
+          isActive: true,
+        },
         select: { id: true },
       });
       return !!result;
@@ -133,11 +154,12 @@ export class AccountRepository implements Repository<Account> {
   }
 
   // Métodos específicos para Account
-  async findByName(name: string): Promise<Account | null> {
+  async findByName(name: string, userId: string): Promise<Account | null> {
     try {
       const result = await this.prisma.account.findFirst({
         where: {
           name,
+          userId,
           isActive: true,
         },
       });
@@ -150,11 +172,12 @@ export class AccountRepository implements Repository<Account> {
     }
   }
 
-  async findByType(type: string): Promise<Account[]> {
+  async findByType(type: string, userId: string): Promise<Account[]> {
     try {
       const results = await this.prisma.account.findMany({
         where: {
           type,
+          userId,
           isActive: true,
         },
       });
@@ -167,10 +190,13 @@ export class AccountRepository implements Repository<Account> {
     }
   }
 
-  async getActiveAccounts(): Promise<Account[]> {
+  async getActiveAccounts(userId: string): Promise<Account[]> {
     try {
       const results = await this.prisma.account.findMany({
-        where: { isActive: true },
+        where: {
+          userId,
+          isActive: true,
+        },
         orderBy: { name: "asc" },
       });
       return results.map(AccountMapper.toDomain);

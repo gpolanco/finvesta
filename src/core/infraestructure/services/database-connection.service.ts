@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
+import { AuthIntegrationService } from "./auth-integration.service";
 
 export class DatabaseConnectionService {
   private static instance: DatabaseConnectionService;
   private prisma: PrismaClient;
+  private authIntegration: AuthIntegrationService;
 
   private constructor() {
     this.prisma = new PrismaClient({
@@ -11,6 +13,7 @@ export class DatabaseConnectionService {
           ? ["query", "error", "warn"]
           : ["error"],
     });
+    this.authIntegration = new AuthIntegrationService(this.prisma);
   }
 
   public static getInstance(): DatabaseConnectionService {
@@ -22,6 +25,10 @@ export class DatabaseConnectionService {
 
   public getPrismaClient(): PrismaClient {
     return this.prisma;
+  }
+
+  public getAuthIntegration(): AuthIntegrationService {
+    return this.authIntegration;
   }
 
   public async connect(): Promise<void> {
